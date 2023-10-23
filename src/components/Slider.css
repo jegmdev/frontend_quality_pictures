@@ -1,0 +1,111 @@
+.slider {
+    position: relative;
+  }
+  
+  .slider-slide {
+    position: relative;
+    width: 100%;
+  }
+  
+  .slider-slide-background {
+    width: 100%;
+    height: 700px; /* Ajusta la altura de la imagen de fondo */
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .slider-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+  }
+  
+  h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  p {
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+  
+  button {
+    background-color: #007BFF;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  /* Estilos de las flechas (opcional) */
+  .slick-prev, .slick-next {
+    font-size: 24px;
+    color: white;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+  }
+  
+  .slick-prev {
+    left: 20px;
+  }
+  
+  .slick-next {
+    right: 20px;
+  }
+  
+  .navigation button {
+    /* Oculta el texto de los botones */
+    font-size: 0;
+    line-height: 0;
+    text-indent: -9999px;
+    color: transparent;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .navigation button {
+    /* Oculta el texto de los botones */
+    font-size: 0;
+    line-height: 0;
+    text-indent: -9999px;
+    color: transparent;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .navigation button {
+    /* Oculta el texto de los botones */
+    font-size: 0;
+    line-height: 0;
+    text-indent: -9999px;
+    color: transparent;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  
+  /* Estilo de los botones con iconos */
+  .navigation .prev::before,
+  .navigation .next::before {
+    content: ""; /* Agrega los iconos como contenido antes del elemento */
+    /* Estilos de los iconos, como background-image, width, height, etc. */
+  }
+  
+  .slider-slide-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(23, 39, 63, 0.5); /* Fondo transparente con opacidad (en este caso, 0.5) */
+  }
+  

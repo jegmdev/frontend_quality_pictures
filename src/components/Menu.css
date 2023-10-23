@@ -1,0 +1,60 @@
+.menu {
+  background-color: rgba(23, 39, 63, 1); 
+    color: white; /* Texto blanco */
+    height: 90px; /* Altura de 90px */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px; /* Añade un relleno a los lados */
+  }
+  
+  .menu-logo img {
+    height: 300px; /* Tamaño del logo */
+    width: 300px;
+  }
+  
+  .menu-items {
+    list-style: none;
+    display: flex;
+  }
+  
+  .menu-items li {
+    margin-right: 20px; /* Espacio entre elementos del menú */
+  }
+  
+  .menu-items a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+  }
+  
+  /* Estilos responsivos */
+  @media (max-width: 768px) {
+    .menu {
+      justify-content: center;
+    }
+  
+    .menu-items {
+      flex-direction: column;
+      text-align: center;
+    }
+  
+    .menu-items li {
+      margin: 10px 0;
+    }
+  }
+  
+  .menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center; /* Alinea verticalmente los elementos en el centro */
+  }
+  
+  .menu li {
+    margin: 0 20px; /* Añade margen horizontal para separar los elementos del menú */
+    display: flex;
+    align-items: center; /* Alinea verticalmente el texto en el centro */
+  }
+  
