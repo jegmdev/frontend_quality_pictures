@@ -1,10 +1,13 @@
-import { useAuth0 } from '@auth0/auth0-react'
+import React from 'react';
 
-const LoginButtton = () => {
- const {loginWithRedirect} = useAuth0()
-    return (
-    <button onClick={() => loginWithRedirect()}>Login</button>
-    )
+function LoginButton() {
+  const redirectToURL = () => {
+    window.location.href = 'http://localhost:3001';
+  };
+
+  return (
+    <button onClick={redirectToURL}>Login</button>
+  );
 }
 
-export default LoginButtton
+export default LoginButton;

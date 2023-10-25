@@ -13,7 +13,7 @@ const Menu = () => {
         <li><a href="#">Cartelera</a></li>
         <li><a href="#">Perfil</a></li>
         <li>
-            <LoginButton />
+            <LoginButton/>
         </li>
       </ul>
     </nav>

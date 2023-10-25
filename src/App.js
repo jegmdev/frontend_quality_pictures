@@ -1,15 +1,23 @@
 import './App.css';
-import LoginButton from './components/LoginButton'
 import Menu from './components/Menu';
 import Profile from './components/Profile'
 import SliderComponent from './components/SliderComponent';
+import Carousel from './components/Carousel';
 
 function App() {
   return (
     <div className="App">
-      <Menu />
-      <Profile />
-      <SliderComponent />
+      <div className='MainBanner'>
+        <Menu />
+        <Profile />
+        <SliderComponent />
+      </div>
+
+      <div className='Cartelera'>
+        <h2>CARTELERA</h2>
+        <Carousel />
+      </div>
+
     </div>
   );
 }
