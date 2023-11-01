@@ -13,11 +13,10 @@ function App() {
         <SliderComponent />
       </div>
 
-      <div className='Cartelera'>
-        <h2>CARTELERA</h2>
-        <Carousel />
+      <div className='Carousel-Cartelera'>
+        <h2>Estrenos</h2>
+        <Carousel/>
       </div>
-
     </div>
   );
 }

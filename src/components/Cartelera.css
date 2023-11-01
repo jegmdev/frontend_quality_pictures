@@ -1,0 +1,25 @@
+h1 {
+  padding-top: 70px;
+  padding-bottom: 70px; /* Puedes ajustar el espaciado según tus preferencias */
+}
+
+/* Establece un contenedor para las películas */
+.pelicula-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+/* Establece un estilo para cada película */
+.pelicula {
+  width: calc(33.33% - 10px); 
+  margin-bottom: 60px;
+  box-sizing: border-box;
+}
+
+/* Agrega un estilo para el botón "Ver cartelera completa" */
+.ver-cartelera-button {
+  width: 100%;
+  text-align: center;
+  margin-top: 20px;
+}

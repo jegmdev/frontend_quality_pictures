@@ -8,10 +8,11 @@ const Menu = () => {
       <div className="menu-logo">
         <img src="http://pink-anteater-360296.hostingersite.com/wp-content/uploads/2023/10/cinomy-logo-1.png" alt="Logo de la App" />
       </div>
+      <div className='menu-toggle'></div>
       <ul className="menu-items">
         <li><a href="#">Home</a></li>
         <li><a href="#">Cartelera</a></li>
-        <li><a href="#">Perfil</a></li>
+        <li><a href="">Perfil</a></li>
         <li>
             <LoginButton/>
         </li>

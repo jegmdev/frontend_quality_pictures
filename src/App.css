@@ -1,3 +1,13 @@
+.Carousel-Cartelera h2 {
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.Cartelera h2 {
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
 .App {
   text-align: center;
 }
@@ -36,3 +46,4 @@
     transform: rotate(360deg);
   }
 }
+

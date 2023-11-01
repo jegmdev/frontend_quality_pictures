@@ -5,13 +5,12 @@
   
   .movie-card {
     position: relative;
-    margin: 10px;
-    border: 1px solid #ddd;
+    border: 0px solid #ddd;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     background-color: #fff;
     transition: transform 0.3s, box-shadow 0.3s;
-    width: 200px; /* Ancho fijo para todas las tarjetas */
-    height: 300px;
+    width: auto;  /* Ancho fijo para todas las tarjetas */
+    height: 650px;
   }
   
   .movie-card:hover {
@@ -23,7 +22,7 @@
     max-width: 100%;
     width: 100%; /* La imagen ocupará todo el ancho de la tarjeta */
     height: 100%; /* La imagen ocupará todo el alto de la tarjeta */
-    object-fit: cover; /* Ajusta la imagen manteniendo su relación de aspecto */
+    object-fit: contain; /* Ajusta la imagen manteniendo su relación de aspecto */
   }
   
   .movie-card h3 {
@@ -63,7 +62,7 @@
     display: block;
     padding: 10px 20px;
     margin: 10px;
-    background: #ff6f61; /* Color de botón */
+    background: #007BFF; /* Color de botón */
     color: #fff;
     text-align: center;
     text-decoration: none;
@@ -74,6 +73,6 @@
   }
   
   .button:hover {
-    background: #ff5733; /* Color de botón al hacer hover */
+    background: #1b7de6; /* Color de botón al hacer hover */
   }
   

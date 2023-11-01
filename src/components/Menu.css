@@ -1,12 +1,21 @@
 .menu {
   background-color: rgba(23, 39, 63, 1); 
     color: white; /* Texto blanco */
-    height: 90px; /* Altura de 90px */
+    height: 80px; /* Altura de 90px */
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 20px; /* Añade un relleno a los lados */
+    padding: 20px; /* Añade un relleno a los lados */
   }
+
+  .menu-icon {
+    background-image: url('../images/icon-menu.png');
+    width: 65px; /* Ajusta el ancho de la imagen según tus necesidades */
+    height: 65px; /* Ajusta la altura de la imagen según tus necesidades */
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+  
   
   .menu-logo img {
     height: 300px; /* Tamaño del logo */
@@ -31,16 +40,25 @@
   /* Estilos responsivos */
   @media (max-width: 768px) {
     .menu {
+      flex-direction: column;
+      align-items: center;
+      height: auto;
       justify-content: center;
+    }
+
+    .menu-logo img {
+      height: 150px;
+      width: auto;
     }
   
     .menu-items {
       flex-direction: column;
       text-align: center;
+      width: 100%;
     }
   
     .menu-items li {
-      margin: 10px 0;
+      padding: 8px;
     }
   }
   
@@ -57,4 +75,3 @@
     display: flex;
     align-items: center; /* Alinea verticalmente el texto en el centro */
   }
-  
