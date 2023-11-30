@@ -1,0 +1,50 @@
+.reservar-silla {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    width: 300px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+   }
+   
+   .fila {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+   }
+   
+   .silla {
+    width: 30px;
+    height: 30px;
+    margin: 0 5px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+   }
+   
+   .silla:hover {
+    background-color: #eee;
+   }
+   
+   .silla.seleccionada {
+    background-color: #007BFF;
+    color: #fff;
+   }
+   
+   .silla.seleccionada:hover {
+    background-color: #007BFF;
+   }
+   
+   .boton {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+   }
+   

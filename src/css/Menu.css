@@ -1,11 +1,11 @@
 .menu {
   background-color: rgba(23, 39, 63, 1); 
     color: white; /* Texto blanco */
-    height: 80px; /* Altura de 90px */
+    height: 150px; /* Altura de 100px */
+    width: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
-    padding: 20px; /* Añade un relleno a los lados */
   }
 
   .menu-icon {
@@ -17,14 +17,22 @@
   }
   
   
-  .menu-logo img {
-    height: 300px; /* Tamaño del logo */
+  .menu-logo{
+    height: 100px; /* Tamaño del logo */
     width: 300px;
+    overflow: hidden;
+  }
+
+  .menu-logo img {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
   }
   
-  .menu-items {
+  .menu-items  {
     list-style: none;
     display: flex;
+    padding-right: 200px;
   }
   
   .menu-items li {

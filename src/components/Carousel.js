@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import './Carousel.css';
+import '../css/Carousel.css';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
+
 
 const Carousel = () => {
   const [movieData, setMovieData] = useState([]);
@@ -15,7 +17,7 @@ const Carousel = () => {
         {
           params: {
             api_key: '14b5366a2c78d02ef27b5efc74e15ed7',
-            language: 'en-US',
+            language: 'es-ES',
             page: 1,
           },
         }
@@ -27,20 +29,19 @@ const Carousel = () => {
           {
             params: {
               api_key: '14b5366a2c78d02ef27b5efc74e15ed7',
-              language: 'en-US',
+              language: 'es-ES',
             },
           }
         );
 
         return {
           title: movie.title,
+          overview: detailsResponse.data.overview,
           image: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
           showtimes: ['10:00 AM', '1:00 PM', '4:00 PM', '7:00 PM'],
           trailerLink: `https://www.youtube.com/watch?v=${movie.id}`,
-          ticketLink: `ticket-link-${movie.id}`,
           genre: detailsResponse.data.genres.map((genre) => genre.name).join(', '),
           duration: detailsResponse.data.runtime,
-          overview: detailsResponse.data.overview,
         };
       });
 
@@ -96,9 +97,7 @@ const Carousel = () => {
               <a href={movie.trailerLink} className="button">
                 Ver tráiler
               </a>
-              <a href={movie.ticketLink} className="button">
-                Comprar ticket
-              </a>
+              <Link className="button" to='/reserva'>Reservar</Link>
             </div>
           </div>
         ))}

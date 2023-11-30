@@ -1,0 +1,50 @@
+.Link{
+    font-weight: bold;
+    color: black;
+}
+
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    margin-top: 100px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+   }
+   
+   .login-container form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+   }
+   
+   .login-container label {
+    margin-bottom: 5px;
+    text-align: start;
+    font-weight: bold;
+   }
+   
+   .login-container input {
+    margin-bottom: 20px;
+    padding: 5px;
+    font-size: 14px;
+   }
+   
+   .login-container button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+   }
+   
+   .login-container button:hover {
+    background-color: #0056b3;
+   }

@@ -1,23 +1,32 @@
 import React from 'react';
-import './Menu.css'; // Asegúrate de tener un archivo CSS separado para los estilos
-import LoginButton from './LoginButton';
+import { Outlet } from 'react-router';
+import { Link } from 'react-router-dom';
+import '../css/Menu.css';
 
 const Menu = () => {
   return (
-    <nav className="menu">
-      <div className="menu-logo">
-        <img src="http://pink-anteater-360296.hostingersite.com/wp-content/uploads/2023/10/cinomy-logo-1.png" alt="Logo de la App" />
-      </div>
-      <div className='menu-toggle'></div>
-      <ul className="menu-items">
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Cartelera</a></li>
-        <li><a href="">Perfil</a></li>
-        <li>
-            <LoginButton/>
-        </li>
-      </ul>
-    </nav>
+    <div>
+      <nav className="menu">
+        <div className="menu-logo">
+          <img src="https://templatekit.jegtheme.com/cinomy/wp-content/uploads/sites/151/2021/08/cinomy-logo.png" alt="Logo de la App" />
+        </div>
+        <ul className="menu-items">
+          <li>
+            <Link to='/'>Home</Link>
+          </li>
+          <li>
+            <Link to='/cartelera'>Cartelera</Link>
+          </li>
+          <li>
+            <Link to='/reserva'>Reservar</Link>
+          </li>
+          <li>
+            <Link to='/login'>Iniciar Sesión</Link>
+          </li>
+        </ul>
+      </nav>
+      <Outlet />
+    </div>
   );
 }
 

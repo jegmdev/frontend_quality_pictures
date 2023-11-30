@@ -1,15 +1,11 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import './Cartelera.css'
-import Menu from './Menu';
-import Profile from './Profile'
+import '../css/Cartelera.css';
+import '../css/App.css';
 import SliderComponent from './SliderComponent';
+import { Link } from 'react-router-dom';
 
-<div className='MainBanner'>
-  <Menu />
-  <Profile />
-  <SliderComponent />
-</div>
+<SliderComponent />
 
 class Cartelera extends Component {
   constructor() {
@@ -26,18 +22,17 @@ class Cartelera extends Component {
     axios.get(apiUrl, {
       params: {
         api_key: apiKey,
-        language: 'en-US',
+        language: 'es-ES',
         page: 1
       }
     })
     .then(response => {
-      const peliculas = response.data.results.slice(0, 9).map(pelicula => ({
+      const MAX_WORDS = 20;
+      const peliculas = response.data.results.filter(pelicula => pelicula.title !== '172 Days').slice(0, 15).map(pelicula => ({
         id: pelicula.id,
         title: pelicula.title,
-        overview: pelicula.overview,
-        posterPath: `https://image.tmdb.org/t/p/w500${pelicula.poster_path}`, // Obtenemos la URL del póster
-        releaseDate: pelicula.release_date
-        // Puedes agregar más detalles de la película aquí si es necesario
+        overview: limitarPalabras(pelicula.overview, MAX_WORDS),
+        posterPath: `https://image.tmdb.org/t/p/w500${pelicula.poster_path}`,
       }));
       this.setState({ peliculas });
     })
@@ -50,17 +45,14 @@ class Cartelera extends Component {
   render() {
     return (
       <div>
+        <SliderComponent />
       <div className="pelicula-container">
         {this.state.peliculas.map(pelicula => (
           <div key={pelicula.id} className="pelicula">
             <img src={pelicula.posterPath} alt={pelicula.title} />
-            <h2>{pelicula.titulo}</h2>
-            <p>Género: {pelicula.genero}</p>
-            <p>Sinopsis: {pelicula.sinopsis}</p>
-            <img src={pelicula.imagen} alt={pelicula.titulo} />
-            <p>Formato: {pelicula.formato}</p>
-            <p>Duración: {pelicula.duracion} minutos</p>
-            <button>Reservar</button>
+            <h2>{pelicula.title}</h2>
+            <p><b>Sinopsis:</b> {pelicula.overview}</p>
+            <Link className="button" to='/reserva'>Reservar</Link>
           </div>
         ))}
       </div>
@@ -68,5 +60,14 @@ class Cartelera extends Component {
     );
   }
 };
+
+// Función para limitar palabras en la descripción general
+function limitarPalabras(texto, maxPalabras) {
+  const palabras = texto.split(' ');
+  if (palabras.length > maxPalabras) {
+    return palabras.slice(0, maxPalabras).join(' ') + '...';
+  }
+  return texto;
+}
 
 export default Cartelera;
