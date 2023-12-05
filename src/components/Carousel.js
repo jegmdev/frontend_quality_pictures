@@ -6,7 +6,6 @@ import '../css/Carousel.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
-
 const Carousel = () => {
   const [movieData, setMovieData] = useState([]);
 
@@ -59,8 +58,10 @@ const Carousel = () => {
 
   const settings = {
     dots: true,
+    arrows: false,
     infinite: true,
     speed: 500,
+    autoplay: true,
     slidesToShow: 3,
     slidesToScroll: 1,
     responsive: [
@@ -89,7 +90,7 @@ const Carousel = () => {
             <p><strong>Género:</strong> {movie.genre}</p>
             <p><strong>Duración:</strong> {movie.duration} minutos</p>
             <ul>
-              {movie.showtimes.map((showtime, i) => (
+              <strong>Funciones:</strong>{movie.showtimes.map((showtime, i) => (
                 <li key={i}>{showtime}</li>
               ))}
             </ul>

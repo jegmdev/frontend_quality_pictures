@@ -3,8 +3,7 @@ import '../css/Registro.css';
 
 const Registro = () => {
   const [correo, setCorreo] = useState('');
-  const [error, setError] = useState(''); // Cambiado de [setError] a [error]
-
+  const [error, setError] = useState(''); 
   const [correoConfirmado, setCorreoConfirmado] = useState('');
   const [contraseña, setContraseña] = useState('');
   const [contraseñaConfirmada, setContraseñaConfirmada] = useState('');
@@ -35,6 +34,7 @@ const Registro = () => {
     }
 
     setError(''); // Limpiar mensajes de error previos
+    
 
     try {
       const response = await fetch('http://localhost:3001/api/registro', {

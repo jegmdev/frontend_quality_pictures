@@ -6,16 +6,16 @@ import '../css/Slider.css';
 
 const sliderData = [
   {
-    background: 'https://i.postimg.cc/tCFRZWbg/banner1home.webp',
+    background: 'https://i.postimg.cc/3w4vBG9J/1.webp',
     title: '¡Vive la magia en nuestras salas!',
   },
   {
-    background: 'https://i.postimg.cc/W1jNMzpw/banner2home.webp',
+    background: 'https://i.postimg.cc/tJynpMbY/2.webp',
     title: 'Sumérgete en el mundo del cine con nuestras proyecciones de alta calidad. ¡Donde cada película es una experiencia que no querrás perderte!',
   },
   {
-    background: 'https://i.postimg.cc/523xpJ6d/banner3home.webp',
-    title: 'De la pantalla al corazón: ven y vive la magia del cine en nuestra sala premium. Una explosión de emociones te espera en cada función. Wars',
+    background: 'https://i.postimg.cc/rm5t6LvB/3.webp',
+    title: 'De la pantalla al corazón: ven y vive la magia del cine en nuestra sala premium. Una explosión de emociones te espera en cada función.',
   },
 ];
 

@@ -1,6 +1,12 @@
+.Carousel-Cartelera {
+  width: auto;
+  margin: 0px;
+  padding: 0px;
+}
+
 .Carousel-Cartelera h2 {
-  margin-top: 50px;
-  margin-bottom: 50px;
+  padding-top: 50px;
+  padding: 50px;
 }
 
 .Cartelera h2 {

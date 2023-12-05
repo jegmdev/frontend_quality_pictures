@@ -1,6 +1,15 @@
 .carousel-container {
-    text-align: center;
-  }  
+  width: 100%; /* Ajusta el ancho según sea necesario */
+  overflow-x: hidden; /* Evita el scroll horizontal */
+  overflow-y: hidden;
+  white-space: nowrap; /* Evita el salto de línea */
+}
+
+.carousel-container {
+  margin: 0;
+  padding: 0;
+}
+
   
   .movie-card {
     position: relative;
@@ -8,20 +17,20 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     background-color: #fff;
     transition: transform 0.3s, box-shadow 0.3s;
-    width: auto;  /* Ancho fijo para todas las tarjetas */
-    height: 650px;
+    height: auto;
   }
   
   .movie-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 12px 8px rgba(0, 0, 0, 0.2);
   }
   
   .movie-card img {
     max-width: 100%;
     width: 100%; /* La imagen ocupará todo el ancho de la tarjeta */
-    height: 100%; /* La imagen ocupará todo el alto de la tarjeta */
     object-fit: contain; /* Ajusta la imagen manteniendo su relación de aspecto */
+    padding: 10px;
+    margin: 0;
   }
   
   .movie-card h3 {
@@ -50,6 +59,8 @@
     align-items: center;
     justify-content: center;
     opacity: 0;
+    padding: 0;
+    margin: 0;
     transition: opacity 0.3s;
   }
   

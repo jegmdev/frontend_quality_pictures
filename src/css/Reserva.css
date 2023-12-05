@@ -1,33 +1,5 @@
-.contenedor {
-    display: flex; /* Utilizamos flexbox para hacer que los elementos se distribuyan de manera flexible */
-    width: 100%;
-  }
-  
-  .seccion-izquierda,
-  .seccion-derecha {
-    flex: 1; /* Hace que ambas secciones ocupen la misma cantidad de espacio disponible */
-    padding: 180px;
-  }
-  
-  .seccion-izquierda {
-    background-color: #ffffff; /* Fondo de la sección izquierda */
-  }
-  
-  .seccion-derecha {
-    background-color: #ffffff; /* Fondo de la sección derecha */
-    padding-left: 200px;
-    align-items: center;
-  }
-
 .reserva h1 {
     font-size: 2em;
-}
-
-button {
-    padding: 10px;
-    border-radius: 5px;
-    margin-top: 50px;
-    font-size: 20px;
 }
 
 .reserva {
