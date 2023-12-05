@@ -2,71 +2,72 @@ import React, { useState } from 'react';
 import '../css/Registro.css';
 
 const Registro = () => {
-const [setError] = useState('');
- const [correo, setCorreo] = useState('');
- const [correoConfirmado, setCorreoConfirmado] = useState('');
- const [contraseña, setContraseña] = useState('');
- const [contraseñaConfirmada, setContraseñaConfirmada] = useState('');
- const [nombre, setNombre] = useState('');
- const [apellidos, setApellidos] = useState('');
- const [tipo, setTipo] = useState('');
- const [direccion, setDireccion] = useState('');
- const [celular, setCelular] = useState('');
- const [documentoIdentidad, setDocumentoIdentidad] = useState('');
+  const [correo, setCorreo] = useState('');
+  const [error, setError] = useState(''); // Cambiado de [setError] a [error]
 
- const validarFormulario = async (e) => {
-  e.preventDefault();
+  const [correoConfirmado, setCorreoConfirmado] = useState('');
+  const [contraseña, setContraseña] = useState('');
+  const [contraseñaConfirmada, setContraseñaConfirmada] = useState('');
+  const [nombre, setNombre] = useState('');
+  const [apellidos, setApellidos] = useState('');
+  const [tipo, setTipo] = useState('');
+  const [direccion, setDireccion] = useState('');
+  const [celular, setCelular] = useState('');
+  const [documentoIdentidad, setDocumentoIdentidad] = useState('');
 
-  // Validaciones básicas
-  if (!correo || !contraseña || !nombre || !apellidos || !tipo || !direccion || !celular || !documentoIdentidad) {
-    setError('Por favor, complete todos los campos.');
-    return;
-  }
+  const validarFormulario = async (e) => {
+    e.preventDefault();
 
-  if (correo !== correoConfirmado) {
-    setError('Los correos electrónicos no coinciden.');
-    return;
-  }
-
-  if (contraseña !== contraseñaConfirmada) {
-    setError('Las contraseñas no coinciden.');
-    return;
-  }
-
-  setError(''); // Limpiar mensajes de error previos
-
-  try {
-    const response = await fetch('http://localhost:3001/api/registro', {
-      method: 'POST',
-      credentials: 'include',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        correo,
-        contraseña,
-        nombre,
-        apellidos,
-        tipo,
-        direccion,
-        celular,
-        documentoIdentidad,
-      })
-    });
-
-    if (response.ok) {
-      console.log('Registro exitoso');
-      // Puedes redirigir o realizar otras acciones después de un registro exitoso
-    } else {
-      console.error('Error en el registro');
-      // Puedes manejar errores específicos aquí si es necesario
+    // Validaciones básicas
+    if (!correo || !contraseña || !nombre || !apellidos || !tipo || !direccion || !celular || !documentoIdentidad) {
+      setError('Por favor, complete todos los campos.');
+      return;
     }
-  } catch (error) {
-    console.error('Error en la solicitud:', error);
-  }
-};
 
- return (
+    if (correo !== correoConfirmado) {
+      setError('Los correos electrónicos no coinciden.');
+      return;
+    }
+
+    if (contraseña !== contraseñaConfirmada) {
+      setError('Las contraseñas no coinciden.');
+      return;
+    }
+
+    setError(''); // Limpiar mensajes de error previos
+
+    try {
+      const response = await fetch('http://localhost:3001/api/registro', {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          correo,
+          contraseña,
+          nombre,
+          apellidos,
+          tipo,
+          direccion,
+          celular,
+          documentoIdentidad,
+        }),
+      });
+
+      if (response.ok) {
+        console.log('Registro exitoso');
+        // Puedes redirigir o realizar otras acciones después de un registro exitoso
+      } else {
+        console.error('Error en el registro');
+        // Puedes manejar errores específicos aquí si es necesario
+      }
+    } catch (error) {
+      console.error('Error en la solicitud:', error);
+    }
+  };
+
+  return (
     <div className="Registro">
       <h1>Registro</h1>
       <form onSubmit={validarFormulario}>
@@ -132,7 +133,7 @@ const [setError] = useState('');
         <button type="submit">Registrarme</button>
       </form>
     </div>
- );
+  );
 };
 
 export default Registro;
