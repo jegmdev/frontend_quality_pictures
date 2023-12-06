@@ -1,38 +1,135 @@
-.reserva h1 {
-    font-size: 2em;
+/* Estilos Generales */
+.reservar-silla {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.reserva {
+.reservar-silla h1 {
+  font-size: 2em;
+}
+
+/* Contenedor principal */
+.contenedor {
+  display: flex;
+  justify-content: space-between;
+  width: 80%; /* Puedes ajustar el ancho según tus necesidades */
+  margin: 20px auto;
+}
+
+/* Formulario */
+.formulario-container {
+  width: 48%; /* Ajusta el ancho según tus necesidades */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  height: 50%;
+}
+
+.formulario {
+  padding: 20px;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  font-size: 18px;
+}
+
+.campo label {
+  font-weight: bold;
+  margin-bottom: 4px;
+  text-align: start;
+  font-size: 1.2em;
+}
+
+.campo select,
+.campo input {
+  font-size: 1em;
+  padding: 5px;
+  width: 100%;
+}
+
+/* Reservar Silla */
+.sillas-container {
+  width: 48%; /* Ajusta el ancho según tus necesidades */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  padding: 20px;
+}
+
+/* Contenedor de Sillas */
+.sillas-container h1 {
+  margin-bottom: 20px;
+}
+
+/* Fila y Silla */
+.fila {
+  display: flex;
+  justify-content: center;
+  margin: 20px;
+}
+
+.silla {
+  width: 50px;
+  height: 30px;
+  margin: 0 5px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.silla:hover {
+  background-color: #eee;
+}
+
+.silla.seleccionada {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.silla.seleccionada:hover {
+  background-color: #007bff;
+}
+
+/* Botón de Reserva */
+.boton {
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Media query para versiones móviles */
+@media screen and (max-width: 768px) {
+  .contenedor {
     display: flex;
     flex-direction: column;
-    align-items: center;
-   }
-   
-   .campo {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    width: 90%; /* Ancho completo en versiones móviles */
+  }
+
+  .formulario-container,
+  .sillas-container {
+    padding: 10px;
+    margin: 0 auto;
+    margin-top: 20px;
+    width: 90%; /* Ancho completo en versiones móviles */
+  }
+
+  .silla {
+    width: 60px;
+    height: 20px;
     padding: 5px;
-    width: 100%;
-    max-width: 400px;
-    font-size: 18px;
-   }
-   
-   .campo select {
-    font-size: 1em;
-   }
-
-   .campo input {
-    font-size: 1em;
-   }
-
-   .campo label{
-    font-weight: bold;
-    font-size: 1.2em;
-   }
-   
-   .resultado p {
-    font-size: 1.5em;
-    font-weight: bold;
-    color: #4a4a4a;
-   }
+    margin: 0 auto;
+    margin-right: 3px;
+    margin-left: 3px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+}

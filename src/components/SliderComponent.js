@@ -4,17 +4,17 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import '../css/Slider.css'; 
 
-const sliderData = [
+const sliderData = [  
   {
-    background: 'https://i.postimg.cc/3w4vBG9J/1.webp',
+    background: 'https://i.postimg.cc/7PSwdvy5/1.png',
     title: '¡Vive la magia en nuestras salas!',
   },
   {
-    background: 'https://i.postimg.cc/tJynpMbY/2.webp',
+    background: 'https://i.postimg.cc/rpdL93JF/2.png',
     title: 'Sumérgete en el mundo del cine con nuestras proyecciones de alta calidad. ¡Donde cada película es una experiencia que no querrás perderte!',
   },
   {
-    background: 'https://i.postimg.cc/rm5t6LvB/3.webp',
+    background: 'https://i.postimg.cc/fRqNmDYr/3.png',
     title: 'De la pantalla al corazón: ven y vive la magia del cine en nuestra sala premium. Una explosión de emociones te espera en cada función.',
   },
 ];
@@ -38,8 +38,7 @@ const SliderComponent = () => {
           <div className="slider-slide-overlay"></div> {/* Capa transparente */}
           <div
             className="slider-slide-background"
-            style={{ backgroundImage: `url(${slide.background})` }}
-          />
+            style={{ backgroundImage: `url(${slide.background})` }}/>
           <div className="slider-content">
             <h2>{slide.title}</h2>
           </div>

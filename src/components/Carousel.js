@@ -1,10 +1,32 @@
-import React, { useEffect, useState } from 'react';
-import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-import '../css/Carousel.css';
-import axios from 'axios';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import "../css/Carousel.css";
+import axios from "axios";
+import { Link } from "react-router-dom";
+
+function CustomNextArrow(props) {
+  const { className, style, onClick } = props;
+  return (
+    <div
+      className={className}
+      style={{ ...style, display: "block" }}
+      onClick={onClick}
+    />
+  );
+}
+
+function CustomPrevArrow(props) {
+  const { className, style, onClick } = props;
+  return (
+    <div
+      className={className}
+      style={{ ...style, display: "block" }}
+      onClick={onClick}
+    />
+  );
+}
 
 const Carousel = () => {
   const [movieData, setMovieData] = useState([]);
@@ -12,11 +34,11 @@ const Carousel = () => {
   const fetchMovieData = async () => {
     try {
       const response = await axios.get(
-        'https://api.themoviedb.org/3/movie/now_playing',
+        "https://api.themoviedb.org/3/movie/now_playing",
         {
           params: {
-            api_key: '14b5366a2c78d02ef27b5efc74e15ed7',
-            language: 'es-ES',
+            api_key: "14b5366a2c78d02ef27b5efc74e15ed7",
+            language: "es-ES",
             page: 1,
           },
         }
@@ -27,8 +49,8 @@ const Carousel = () => {
           `https://api.themoviedb.org/3/movie/${movie.id}`,
           {
             params: {
-              api_key: '14b5366a2c78d02ef27b5efc74e15ed7',
-              language: 'es-ES',
+              api_key: "14b5366a2c78d02ef27b5efc74e15ed7",
+              language: "es-ES",
             },
           }
         );
@@ -37,9 +59,11 @@ const Carousel = () => {
           title: movie.title,
           overview: detailsResponse.data.overview,
           image: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
-          showtimes: ['10:00 AM', '1:00 PM', '4:00 PM', '7:00 PM'],
+          showtimes: ["10:00 AM", "1:00 PM", "4:00 PM", "7:00 PM"],
           trailerLink: `https://www.youtube.com/watch?v=${movie.id}`,
-          genre: detailsResponse.data.genres.map((genre) => genre.name).join(', '),
+          genre: detailsResponse.data.genres
+            .map((genre) => genre.name)
+            .join(", "),
           duration: detailsResponse.data.runtime,
         };
       });
@@ -48,7 +72,7 @@ const Carousel = () => {
         setMovieData(resolvedMovies);
       });
     } catch (error) {
-      console.error('Error al obtener los datos de las películas:', error);
+      console.error("Error al obtener los datos de las películas:", error);
     }
   };
 
@@ -58,11 +82,13 @@ const Carousel = () => {
 
   const settings = {
     dots: true,
-    arrows: false,
+    arrows: true,
     infinite: true,
     speed: 500,
     autoplay: true,
     slidesToShow: 3,
+    nextArrow: <CustomNextArrow />,
+    prevArrow: <CustomPrevArrow />,
     slidesToScroll: 1,
     responsive: [
       {
@@ -82,15 +108,20 @@ const Carousel = () => {
 
   return (
     <div className="carousel-container">
-      <Slider {...settings}>
+      <Slider className="carousel" {...settings}>
         {movieData.map((movie, index) => (
           <div key={index} className="movie-card">
             <img src={movie.image} alt={movie.title} />
             <h3>{movie.title}</h3>
-            <p><strong>Género:</strong> {movie.genre}</p>
-            <p><strong>Duración:</strong> {movie.duration} minutos</p>
+            <p>
+              <strong>Género:</strong> {movie.genre}
+            </p>
+            <p>
+              <strong>Duración:</strong> {movie.duration} minutos
+            </p>
             <ul>
-              <strong>Funciones:</strong>{movie.showtimes.map((showtime, i) => (
+              <strong>Funciones:</strong>
+              {movie.showtimes.map((showtime, i) => (
                 <li key={i}>{showtime}</li>
               ))}
             </ul>
@@ -98,7 +129,9 @@ const Carousel = () => {
               <a href={movie.trailerLink} className="button">
                 Ver tráiler
               </a>
-              <Link className="button" to='/reserva'>Reservar</Link>
+              <Link className="button" to="/reserva">
+                Reservar
+              </Link>
             </div>
           </div>
         ))}

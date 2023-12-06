@@ -11,8 +11,9 @@ function App() {
       </div>
 
       <div className="Carousel-Cartelera">
-        <h2>Estrenos</h2>
+        <h1>Estrenos</h1>
         <Carousel />
+        <br></br>
       </div>
     </div>
   );

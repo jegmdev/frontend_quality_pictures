@@ -1,88 +1,86 @@
 .carousel-container {
-  width: 100%; /* Ajusta el ancho según sea necesario */
-  overflow-x: hidden; /* Evita el scroll horizontal */
-  overflow-y: hidden;
-  white-space: nowrap; /* Evita el salto de línea */
+  width: 100%;
 }
 
-.carousel-container {
-  margin: 0;
+.carousel {
+  width: 70%;
+  margin: 0 auto;
+  height: auto;
+}
+
+.movie-card {
+  position: static;
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  transition: transform 0.3s, box-shadow 0.3s;
+  border-radius: 8px;
+}
+
+.movie-card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 12px 8px rgba(0, 0, 0, 0.2);
+}
+
+.movie-card img {
+  max-width: 90%;
+  width: 100%;
+  object-fit: contain;
+  margin: 0 auto;
+}
+
+.movie-card h3 {
+  font-size: 18px;
+  margin: 10px 0;
+}
+
+.movie-card ul {
+  list-style: none;
   padding: 0;
 }
 
-  
-  .movie-card {
-    position: relative;
-    border: 0px solid #ddd;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    background-color: #fff;
-    transition: transform 0.3s, box-shadow 0.3s;
-    height: auto;
-  }
-  
-  .movie-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 12px 8px rgba(0, 0, 0, 0.2);
-  }
-  
-  .movie-card img {
-    max-width: 100%;
-    width: 100%; /* La imagen ocupará todo el ancho de la tarjeta */
-    object-fit: contain; /* Ajusta la imagen manteniendo su relación de aspecto */
-    padding: 10px;
-    margin: 0;
-  }
-  
-  .movie-card h3 {
-    font-size: 18px;
-    margin: 10px 0;
-  }
-  
-  .movie-card ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .movie-card ul li {
-    margin: 5px 0;
-  }
-  
-  .overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(23, 39, 63, 0.7); /* Fondo transparente oscuro (#17273F) */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    padding: 0;
-    margin: 0;
-    transition: opacity 0.3s;
-  }
-  
-  .movie-card:hover .overlay {
-    opacity: 1;
-  }
-  
-  .button {
-    display: block;
-    padding: 10px 20px;
-    margin: 10px;
-    background: #007BFF; /* Color de botón */
-    color: #fff;
-    text-align: center;
-    text-decoration: none;
-    border: none;
-    border-radius: 5px;
-    font-weight: bold;
-    transition: background 0.3s;
-  }
-  
-  .button:hover {
-    background: #1b7de6; /* Color de botón al hacer hover */
-  }
-  
+.movie-card ul li {
+  margin: 5px 0;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(23, 39, 63, 0.7);
+  /* Fondo transparente oscuro (#17273F) */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  padding: 0;
+  margin: 0;
+  transition: opacity 0.3s;
+}
+
+.movie-card:hover .overlay {
+  opacity: 1;
+}
+
+.button {
+  display: block;
+  padding: 10px 20px;
+  margin: 10px;
+  background: #007BFF;
+  /* Color de botón */
+  color: #fff;
+  text-align: center;
+  text-decoration: none;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+.button:hover {
+  background: #1b7de6;
+  /* Color de botón al hacer hover */
+}

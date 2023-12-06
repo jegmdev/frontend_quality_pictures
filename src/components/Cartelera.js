@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
 import "../css/Cartelera.css";
-import "../css/App.css";
 import { Link } from "react-router-dom";
 
 class Cartelera extends Component {
@@ -25,13 +24,14 @@ class Cartelera extends Component {
         },
       })
       .then((response) => {
-        const MAX_WORDS = 20;
+        const MAX_WORDS = 15;
+        const MAX_WORDS2 = 6;
         const peliculas = response.data.results
           .filter((pelicula) => pelicula.title !== "172 Days")
-          .slice(0, 15)
+          .slice(0, 18)
           .map((pelicula) => ({
             id: pelicula.id,
-            title: pelicula.title,
+            title: limitarPalabras2(pelicula.title, MAX_WORDS2),
             overview: limitarPalabras(pelicula.overview, MAX_WORDS),
             posterPath: `https://image.tmdb.org/t/p/w500${pelicula.poster_path}`,
           }));
@@ -67,6 +67,14 @@ class Cartelera extends Component {
 
 // Función para limitar palabras en la descripción general
 function limitarPalabras(texto, maxPalabras) {
+  const palabras = texto.split(" ");
+  if (palabras.length > maxPalabras) {
+    return palabras.slice(0, maxPalabras).join(" ") + "...";
+  }
+  return texto;
+}
+
+function limitarPalabras2(texto, maxPalabras) {
   const palabras = texto.split(" ");
   if (palabras.length > maxPalabras) {
     return palabras.slice(0, maxPalabras).join(" ") + "...";

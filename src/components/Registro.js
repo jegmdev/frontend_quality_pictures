@@ -3,6 +3,7 @@ import '../css/Registro.css';
 
 const Registro = () => {
   const [correo, setCorreo] = useState('');
+  // eslint-disable-next-line
   const [error, setError] = useState(''); 
   const [correoConfirmado, setCorreoConfirmado] = useState('');
   const [contraseña, setContraseña] = useState('');
