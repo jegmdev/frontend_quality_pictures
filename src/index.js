@@ -1,16 +1,58 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider, children } from 'react-router-dom';
+import { AuthProvider } from './auth/AuthProvider.tsx';
 import './css/index.css';
 import App from './components/App';
 import reportWebVitals from './reportWebVitals';
+import Cartelera from './components/Cartelera';
+import Reserva from './components/Reserva';
+import Login from './components/Login';
+import Home from './components/Home';
+import Registro from './components/Registro';
+import PrivateRoute from './components/PrivateRoute';
+import DashboardAdmin from './components/DashboardAdmin';
+
+const router = createBrowserRouter([
+  { 
+    path: '/', 
+    element: <Home /> 
+  },
+  { 
+    path: '/cartelera', 
+    element: <Cartelera /> 
+  },
+  { 
+    path: '/reserva', 
+    element: <Reserva /> 
+  },
+  { 
+    path: '/login', 
+    element: <Login /> 
+  },
+  { 
+    path: '/registro', 
+    element: <Registro /> 
+  },
+  { 
+    path: '/', 
+    element: <PrivateRoute />,
+    children: [
+      {
+        path: '/admin',
+        element: <DashboardAdmin />
+      },
+    ],
+  },
+]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
       <App/>
-    </BrowserRouter>
   </React.StrictMode>,
 );
 

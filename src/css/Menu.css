@@ -1,3 +1,8 @@
+.div-menu {
+  height: 150px;
+  width: 100%;
+}
+
 .menu {
   background-color: rgba(23, 39, 63, 1);
   color: white;
@@ -6,6 +11,9 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
 .menu-icon {

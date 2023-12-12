@@ -5,7 +5,7 @@ import '../css/Menu.css';
 
 const Menu = () => {
   return (
-    <div>
+    <div className='div-menu'>
       <nav className="menu">
         <div className="menu-logo">
           <img src="https://templatekit.jegtheme.com/cinomy/wp-content/uploads/sites/151/2021/08/cinomy-logo.png" alt="Logo de la App" />
