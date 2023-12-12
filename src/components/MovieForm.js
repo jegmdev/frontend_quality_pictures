@@ -63,7 +63,7 @@ class MovieForm extends Component {
           <label>
             Imagen promocional:
             <input
-              type=""
+              type="file"
               name="promotionalImage"
               value={this.state.promotionalImage}
               onChange={this.handleChange}
