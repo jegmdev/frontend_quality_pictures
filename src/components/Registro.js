@@ -71,7 +71,7 @@ const Registro = () => {
     setError(""); // Limpiar mensajes de error previos
 
     try {
-      const response = await fetch('${API_URL}/registro', {
+      const response = await fetch("http://localhost:3001/api/registro", {
         method: "POST",
         credentials: "include",
         headers: {

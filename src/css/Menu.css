@@ -1,46 +1,65 @@
 .div-menu {
-  height: 150px;
   width: 100%;
+  height: auto;
 }
+
+.menu-items.hidden {
+  display: none;
+}
+
 
 .menu {
   background-color: rgba(23, 39, 63, 1);
   color: white;
-  height: 150px;
-  width: 100%;
   display: flex;
-  justify-content: space-around;
   align-items: center;
-  position: sticky;
+  position: static;
   top: 0;
-  z-index: 1000;
+  z-index: 1;
+  overflow: hidden;
+  height: 150px;
+  transition: height 0.3s ease; /* Agregado para suavizar la transición de altura */
 }
 
-.menu-icon {
-  background-image: url('../images/icon-menu.png');
-  width: 65px;
-  height: 65px;
-  background-size: contain;
-  background-repeat: no-repeat;
-  cursor: pointer;
+.logo-icon-container {
+  display: flex;
+  align-items: center;
 }
 
 .menu-logo {
-  height: 100px;
-  width: 300px;
-  overflow: hidden;
+  display: flex;
+  width: 70%;
+  height: auto;
+  margin: 0;
+  padding: 0;
 }
 
 .menu-logo img {
-  height: 100%;
-  width: 100%;
+  width: 50%;
+  height: auto;
   object-fit: contain;
+  padding-left: 300px;
+}
+
+.menu-icon {
+  display: none;
+}
+
+.menu-icon img {
+  max-width: 10%;
+  height: auto;
+  cursor: pointer;
+  margin-right: 20px;
 }
 
 .menu-items {
   list-style: none;
-  display: flex;
+  justify-content: flex-end;
   padding-right: 200px;
+  width: 50%;
+  display: flex;
+  overflow: hidden;
+  transition: width 0.3s ease; /* Agregado para suavizar la transición de ancho */
 }
 
 .menu-items li {
@@ -57,51 +76,52 @@
 @media (max-width: 768px) {
   .menu {
     flex-direction: column;
-    align-items: center;
+    text-align: center;
     height: auto;
-    justify-content: center;
+  }
+
+  .menu-logo {
+    width: 70%;
+    justify-content: start;
   }
 
   .menu-logo img {
-    height: 100%;
     width: 100%;
-    object-fit: contain;
+    padding: 20px;
+    justify-content: start;
+  }
+
+  .menu-icon {
+    max-width: 30%;
+    padding: 20px;
+    display: block;
+  }
+
+  .menu-icon img {
+    max-width: 20%;
+    padding-left: 70px;
+    display: block;
   }
 
   .menu-items {
-    display: none;
-    flex-direction: column;
-    text-align: center;
+    justify-content: center;
+    padding: 0;
+    display: block;
     width: 100%;
+    overflow: hidden;
   }
 
   .menu-items li {
+    width: 100%;
+    align-items: center;
     padding: 8px;
   }
 
-  .menu-btn.active+.menu-items {
+  .menu-btn.active + .menu-items {
     display: flex;
   }
-}
 
-.menu ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  align-items: center;
-}
-
-.menu li {
-  margin: 0 20px;
-  display: flex;
-  align-items: center;
-}
-
-.menu-btn {
-  display: none;
-}
-
-.menu-btn.active+.menu-items {
-  display: flex;
+  .menu-btn {
+    display: inline-block;
+  }
 }

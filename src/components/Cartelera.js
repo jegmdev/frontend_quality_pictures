@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import "../css/Cartelera.css";
 import { Link } from "react-router-dom";
+import DefaultLayout from "../layout/DefaultLayout.tsx";
 
 class Cartelera extends Component {
   constructor() {
@@ -44,23 +45,25 @@ class Cartelera extends Component {
 
   render() {
     return (
-      <div>
-        <h1>Cartelera</h1>
-        <div className="pelicula-container">
-          {this.state.peliculas.map((pelicula) => (
-            <div key={pelicula.id} className="pelicula">
-              <img src={pelicula.posterPath} alt={pelicula.title} />
-              <h2>{pelicula.title}</h2>
-              <p>
-                <b>Sinopsis:</b> {pelicula.overview}
-              </p>
-              <Link className="button" to="/reserva">
-                Reservar
-              </Link>
-            </div>
-          ))}
+      <DefaultLayout>
+        <div>
+          <h1>Cartelera</h1>
+          <div className="pelicula-container">
+            {this.state.peliculas.map((pelicula) => (
+              <div key={pelicula.id} className="pelicula">
+                <img src={pelicula.posterPath} alt={pelicula.title} />
+                <h2>{pelicula.title}</h2>
+                <p>
+                  <b>Sinopsis:</b> {pelicula.overview}
+                </p>
+                <Link className="button" to="/reserva">
+                  Reservar
+                </Link>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
+      </DefaultLayout>
     );
   }
 }
