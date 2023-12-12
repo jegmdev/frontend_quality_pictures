@@ -12,6 +12,7 @@ import Home from './components/Home';
 import Registro from './components/Registro';
 import PrivateRoute from './components/PrivateRoute';
 import DashboardAdmin from './components/DashboardAdmin';
+import MovieForm from './components/MovieForm.js';
 
 const router = createBrowserRouter([
   { 
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
   { 
     path: '/registro', 
     element: <Registro /> 
+  },
+  { 
+    path: '/admin/peliculas', 
+    element: <MovieForm /> 
   },
   { 
     path: '/', 
