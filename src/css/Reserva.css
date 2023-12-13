@@ -1,8 +1,34 @@
 /* Estilos Generales */
+.detalles-pelicula{
+  padding-top: 100px;
+}
+
+.detalles-pelicula h2{
+  padding-bottom: 50px;
+}
+
+.contenedor-peli {
+  display: flex;
+  width: 70%;
+  margin: 0 auto;
+  align-items: center;
+  border-radius: 5px;
+  border: 3px solid #17273F;
+}
+
+.poster {
+  padding: 10px;
+}
+
+.info-peli{
+  padding: 10px;
+}
+
 .reservar-silla {
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: center;
 }
 
 .reservar-silla h1 {
@@ -15,6 +41,7 @@
   justify-content: space-between;
   width: 80%; /* Puedes ajustar el ancho según tus necesidades */
   margin: 20px auto;
+  align-items: center;
 }
 
 /* Formulario */
