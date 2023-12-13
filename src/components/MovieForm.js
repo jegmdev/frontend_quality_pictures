@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "../css/MovieForm.css";
+import AdminLayout from "../layout/AdminLayout.tsx";
 
 class MovieForm extends Component {
   constructor(props) {
@@ -36,7 +37,15 @@ class MovieForm extends Component {
       return;
     }
 
-    const { title, genre, synopsis, promotionalImage, format, duration, ticketValue } = this.state;
+    const {
+      title,
+      genre,
+      synopsis,
+      promotionalImage,
+      format,
+      duration,
+      ticketValue,
+    } = this.state;
 
     const formData = new FormData();
     formData.append("titulo", title);
@@ -66,51 +75,42 @@ class MovieForm extends Component {
 
   render() {
     return (
-      <div className="MovieForm">
-        <h2>Agregar Película</h2>
-        <form onSubmit={this.handleSubmit}>
-          <label>
-            Título:
-          </label>
-          <input
+      <AdminLayout>
+        <div className="MovieForm">
+          <h2>Agregar Película</h2>
+          <form onSubmit={this.handleSubmit}>
+            <label>Título:</label>
+            <input
               type="text"
               name="title"
               value={this.state.title}
               onChange={this.handleChange}
             />
-          <br />
-          <label>
-            Género:
-          </label>
-          <input
+            <br />
+            <label>Género:</label>
+            <input
               type="text"
               name="genre"
               value={this.state.genre}
               onChange={this.handleChange}
             />
-          <br />
-          <label>
-            Sinópsis:
-          </label>
-          <textarea
+            <br />
+            <label>Sinópsis:</label>
+            <textarea
               name="synopsis"
               value={this.state.synopsis}
               onChange={this.handleChange}
             />
-          <br />
-          <label>
-            Imagen promocional:
-          </label>
-          <input
+            <br />
+            <label>Imagen promocional:</label>
+            <input
               type="file"
               name="promotionalImage"
               onChange={this.handleChange}
             />
-          <br />
-          <label>
-            Formato:
-          </label>
-          <select
+            <br />
+            <label>Formato:</label>
+            <select
               name="format"
               value={this.state.format}
               onChange={this.handleChange}
@@ -118,30 +118,27 @@ class MovieForm extends Component {
               <option value="2D">2D</option>
               <option value="3D">3D</option>
             </select>
-          <br />
-          <label>
-            Duración:
-          </label>
-          <input
+            <br />
+            <label>Duración:</label>
+            <input
               type="text"
               name="duration"
               value={this.state.duration}
               onChange={this.handleChange}
             />
-          <br />
-          <label>
-            Valor de la boleta:
-          </label>
-          <input
+            <br />
+            <label>Valor de la boleta:</label>
+            <input
               type="text"
               name="ticketValue"
               value={this.state.ticketValue}
               onChange={this.handleChange}
             />
-          <br />
-          <button type="submit">Crear película</button>
-        </form>
-      </div>
+            <br />
+            <button type="submit">Crear película</button>
+          </form>
+        </div>
+      </AdminLayout>
     );
   }
 }
