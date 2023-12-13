@@ -7,6 +7,12 @@ p {
     text-align: center;
 }
 
+select {
+    margin-bottom: 20px;
+    padding: 10px;
+    font-size: 16px;
+}
+
 .MovieForm {
     display: flex;
     flex-direction: column;
