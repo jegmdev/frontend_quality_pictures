@@ -2,14 +2,12 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import DefaultLayout from "../layout/DefaultLayout.tsx";
-import "../css/Cartelera.css"
 
-class Cartelera extends Component {
+class Cartelera2 extends Component {
   constructor() {
     super();
     this.state = {
       peliculas: [],
-      peliculaSeleccionada: null, // Nuevo estado para almacenar la película seleccionada
     };
   }
 
@@ -44,11 +42,6 @@ class Cartelera extends Component {
       });
   }
 
-  handleReservarClick = (pelicula) => {
-    // Al hacer clic en "Reservar", se guarda la película seleccionada en el estado
-    this.setState({ peliculaSeleccionada: pelicula });
-  };
-
   render() {
     return (
       <DefaultLayout>
@@ -62,12 +55,7 @@ class Cartelera extends Component {
                 <p>
                   <b>Sinopsis:</b> {pelicula.overview}
                 </p>
-                {/* Se pasa la función handleReservarClick con la película como argumento */}
-                <Link
-                  className="button"
-                  to="/reserva"
-                  onClick={() => this.handleReservarClick(pelicula)}
-                >
+                <Link className="button" to={`/pelicula/${pelicula.id}`}>
                   Reservar
                 </Link>
               </div>
@@ -79,6 +67,7 @@ class Cartelera extends Component {
   }
 }
 
+// Función para limitar palabras en la descripción general
 function limitarPalabras(texto, maxPalabras) {
   const palabras = texto.split(" ");
   if (palabras.length > maxPalabras) {
@@ -95,4 +84,4 @@ function limitarPalabras2(texto, maxPalabras) {
   return texto;
 }
 
-export default Cartelera;
+export default Cartelera2;

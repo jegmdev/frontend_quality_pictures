@@ -3,6 +3,10 @@
   padding-top: 100px;
 }
 
+#id-pelicula {	
+  display: none;
+}
+
 .detalles-pelicula h2{
   padding-bottom: 50px;
 }
