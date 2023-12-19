@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import DefaultLayout from "../layout/DefaultLayout.tsx";
-import "../css/Cartelera.css"
+import "../css/Cartelera.css";
 
 class Cartelera2 extends Component {
   constructor() {
@@ -13,11 +13,12 @@ class Cartelera2 extends Component {
   }
 
   componentDidMount() {
-    const apiUrl = "https://api.themoviedb.org/3/movie/now_playing";
+    const apiUrlNowPlaying = "https://api.themoviedb.org/3/movie/now_playing";
+    const apiUrlMovieDetails = "https://api.themoviedb.org/3/movie";
     const apiKey = "14b5366a2c78d02ef27b5efc74e15ed7";
 
     axios
-      .get(apiUrl, {
+      .get(apiUrlNowPlaying, {
         params: {
           api_key: apiKey,
           language: "es-ES",
@@ -30,13 +31,29 @@ class Cartelera2 extends Component {
         const peliculas = response.data.results
           .filter((pelicula) => pelicula.title !== "172 Days")
           .slice(0, 18)
-          .map((pelicula) => ({
-            id: pelicula.id,
-            title: limitarPalabras2(pelicula.title, MAX_WORDS2),
-            overview: limitarPalabras(pelicula.overview, MAX_WORDS),
-            posterPath: `https://image.tmdb.org/t/p/w500${pelicula.poster_path}`,
-          }));
-        this.setState({ peliculas });
+          .map((pelicula) => {
+            return axios
+              .get(`${apiUrlMovieDetails}/${pelicula.id}`, {
+                params: {
+                  api_key: apiKey,
+                  language: "es-ES",
+                },
+              })
+              .then((detailResponse) => {
+                const movieDetails = detailResponse.data;
+                return {
+                  id: pelicula.id,
+                  title: pelicula.title,
+                  genre: "Género de la película", // Puedes modificar esto según la información real de la API
+                  duration: `${movieDetails.runtime} min`, // Obtener la duración desde la nueva llamada
+                  posterPath: `https://image.tmdb.org/t/p/w500${pelicula.poster_path}`,
+                };
+              });
+          });
+
+        Promise.all(peliculas).then((peliculasConDetalle) => {
+          this.setState({ peliculas: peliculasConDetalle });
+        });
       })
       .catch((error) => {
         console.error("Error al obtener la lista de películas:", error);
@@ -54,7 +71,10 @@ class Cartelera2 extends Component {
                 <img src={pelicula.posterPath} alt={pelicula.title} />
                 <h2>{pelicula.title}</h2>
                 <p>
-                  <b>Sinopsis:</b> {pelicula.overview}
+                  <b>Género:</b> {pelicula.genre}
+                </p>
+                <p>
+                  <b>Duración:</b> {pelicula.duration}
                 </p>
                 <Link className="button" to={`/pelicula/${pelicula.id}`}>
                   Reservar
@@ -66,23 +86,6 @@ class Cartelera2 extends Component {
       </DefaultLayout>
     );
   }
-}
-
-// Función para limitar palabras en la descripción general
-function limitarPalabras(texto, maxPalabras) {
-  const palabras = texto.split(" ");
-  if (palabras.length > maxPalabras) {
-    return palabras.slice(0, maxPalabras).join(" ") + "...";
-  }
-  return texto;
-}
-
-function limitarPalabras2(texto, maxPalabras) {
-  const palabras = texto.split(" ");
-  if (palabras.length > maxPalabras) {
-    return palabras.slice(0, maxPalabras).join(" ") + "...";
-  }
-  return texto;
 }
 
 export default Cartelera2;

@@ -16,15 +16,15 @@ const DetallesPelicula = () => {
   const [detallesPelicula, setDetallesPelicula] = useState(null);
 
   const salasAsientos = {
-    sala1: {
+    Sala1: {
       filas: 5,
       asientosPorFila: 10,
     },
-    sala2: {
+    Sala2: {
       filas: 6,
       asientosPorFila: 10,
     },
-    sala3: {
+    Sala3: {
       filas: 7,
       asientosPorFila: 10,
     },
@@ -197,9 +197,9 @@ const DetallesPelicula = () => {
                 <label>Sala:</label>
                 <select value={sala} onChange={(e) => setSala(e.target.value)}>
                   <option value="">Seleccione una sala</option>
-                  <option value="sala1">Sala 1</option>
-                  <option value="sala2">Sala 2</option>
-                  <option value="sala3">Sala 3</option>
+                  <option value="Sala1">Sala 1</option>
+                  <option value="Sala2">Sala 2</option>
+                  <option value="Sala3">Sala 3</option>
                 </select>
               </div>
             </div>
