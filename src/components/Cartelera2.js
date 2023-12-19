@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import DefaultLayout from "../layout/DefaultLayout.tsx";
+import "../css/Cartelera.css"
 
 class Cartelera2 extends Component {
   constructor() {

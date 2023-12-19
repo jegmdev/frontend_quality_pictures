@@ -4,49 +4,67 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "../css/Reserva.css";
 import DefaultLayout from "../layout/DefaultLayout.tsx";
+import { useParams } from "react-router-dom";
 
-const ReservarSilla = () => {
+const DetallesPelicula = () => {
+  const { id } = useParams();
   const [selectedSeats, setSelectedSeats] = useState([]);
   const [peli, setPeli] = useState("");
   const [fecha, setFecha] = useState(new Date());
   const [hora, setHora] = useState("");
+  const [sala, setSala] = useState("");
   const [detallesPelicula, setDetallesPelicula] = useState(null);
-  const [peliculas, setPeliculas] = useState([]);
+
+  const salasAsientos = {
+    sala1: {
+      filas: 5,
+      asientosPorFila: 10,
+    },
+    sala2: {
+      filas: 6,
+      asientosPorFila: 10,
+    },
+    sala3: {
+      filas: 7,
+      asientosPorFila: 10,
+    },
+  };
 
   const horas = ["12pm", "3pm", "6pm", "9pm"];
 
   useEffect(() => {
     const fetchData = async () => {
-      const apiUrl = "https://api.themoviedb.org/3/movie/now_playing";
-      const apiKey = "14b5366a2c78d02ef27b5efc74e15ed7";
+      if (id && sala) {
+        try {
+          const response = await axios.get(
+            `https://api.themoviedb.org/3/movie/${id}`,
+            {
+              params: {
+                api_key: "14b5366a2c78d02ef27b5efc74e15ed7",
+                language: "es-ES",
+                sala: sala,
+              },
+            }
+          );
 
-      try {
-        const response = await axios.get(apiUrl, {
-          params: {
-            api_key: apiKey,
-            language: "es-ES",
-            page: 1,
-          },
-        });
-
-        const peliculasData = response.data.results.map((pelicula) => ({
-          id: pelicula.id,
-          title: pelicula.title,
-        }));
-
-        setPeliculas(peliculasData);
-      } catch (error) {
-        console.error("Error al obtener la lista de películas:", error);
+          setDetallesPelicula({
+            posterPath: `https://image.tmdb.org/t/p/w500${response.data.poster_path}`,
+            titulo: response.data.title,
+            sinopsis: response.data.overview,
+            genero: response.data.genres[0]?.name || "Género Desconocido",
+            formato: response.data.imax ? "3D" : "2D",
+            duracion: response.data.runtime
+              ? `${Math.floor(response.data.runtime / 60)}h ${response.data.runtime % 60}min`
+              : "Duración Desconocida",
+          });
+        } catch (error) {
+          console.error("Error al obtener detalles de la película:", error);
+        }
       }
     };
 
     fetchData();
-  }, []);
-
-  const seleccionarPeli = (e) => {
-    setPeli(e.target.value);
-    setDetallesPelicula(null); // Limpiamos los detalles al cambiar la película
-  };
+  }, [id, sala]);
 
   const seleccionarHora = (e) => {
     setHora(e.target.value);
@@ -79,34 +97,22 @@ const ReservarSilla = () => {
     return String.fromCharCode("A".charCodeAt(0) + index);
   };
 
-  const verDetallesPelicula = async () => {
-    if (peli) {
-      try {
-        const response = await axios.get(
-          `https://api.themoviedb.org/3/movie/${peli}`,
-          {
-            params: {
-              api_key: "14b5366a2c78d02ef27b5efc74e15ed7",
-              language: "es-ES",
-            },
-          }
-        );
-
-        setDetallesPelicula({
-          posterPath: `https://image.tmdb.org/t/p/w500${response.data.poster_path}`,
-          titulo: response.data.title,
-          sinopsis: response.data.overview,
-          genero: response.data.genres[0]?.name || "Género Desconocido",
-          formato: response.data.imax ? "3D" : "2D",
-          duracion: response.data.runtime
-            ? `${Math.floor(response.data.runtime / 60)}h ${response.data.runtime % 60}min`
-            : "Duración Desconocida",
-        });
-      } catch (error) {
-        console.error("Error al obtener detalles de la película:", error);
-      }
-    }
+  const handleReservarClick = () => {
+    console.log("ID de la película seleccionada:", id);
+    console.log("Sala seleccionada:", sala);
+    console.log("Fecha seleccionada:", fecha);
+    console.log("Hora seleccionada:", hora);
+    console.log("Asientos seleccionados:", selectedSeats);
+    // Aquí puedes realizar la lógica para reservar con la película, sala y los asientos.
   };
+
+  const selectedSeatsDetails = selectedSeats.map((seat, index) => (
+    <span key={`${seat.row}-${seat.seat}`} className="asiento-seleccionado">
+      {getRowLetter(seat.row)}
+      {seat.seat}
+      {index < selectedSeats.length - 1 && " "} 
+    </span>
+  ));
 
   return (
     <DefaultLayout>
@@ -145,19 +151,14 @@ const ReservarSilla = () => {
         <div className="contenedor">
           <div className="formulario-container">
             <div className="formulario">
-              <div className="campo">
-                <label>Película:</label>
-                <select value={peli} onChange={seleccionarPeli}>
-                  <option value="">Seleccione una película</option>
-                  {peliculas.map((p) => (
-                    <option key={p.id} value={p.id}>
-                      {p.title}
-                    </option>
-                  ))}
-                </select>
-                {peli && (
-                  <button onClick={verDetallesPelicula}>Ver Detalles</button>
-                )}
+              <div className="campo" id="id-pelicula">
+                <label>Película ID:</label>
+                <input
+                  type="text"
+                  value={id}
+                  placeholder="ID de la película"
+                  readOnly
+                />
               </div>
 
               <div className="campo">
@@ -181,30 +182,51 @@ const ReservarSilla = () => {
                   ))}
                 </select>
               </div>
+
+              <div className="campo">
+                <label>Sala:</label>
+                <select value={sala} onChange={(e) => setSala(e.target.value)}>
+                  <option value="">Seleccione una sala</option>
+                  <option value="sala1">Sala 1</option>
+                  <option value="sala2">Sala 2</option>
+                  <option value="sala3">Sala 3</option>
+                </select>
+              </div>
             </div>
           </div>
 
           <div className="sillas-container">
-            <h1>Pantalla</h1>
-            {[...Array(5)].map((_, i) => (
+            <h1>Pantalla - {sala}</h1>
+            {[...Array(salasAsientos[sala]?.filas || 0)].map((_, i) => (
               <div key={i} className="fila">
                 <span className="letra-fila">{getRowLetter(i)}</span>
-                {[...Array(10)].map((_, j) => (
+                {[...Array(salasAsientos[sala]?.asientosPorFila || 0)].map((_, j) => (
                   <div
                     key={j}
                     className={`silla ${
-                      isSeatSelected(i + 1, j + 1) ? "seleccionada" : ""
+                      isSeatSelected(i, j + 1) ? "seleccionada" : ""
                     }`}
-                    onClick={() => selectSeat(i + 1, j + 1)}
+                    onClick={() => selectSeat(i, j + 1)}
                   >
-                    <span className="numero-asiento">{j + 1}</span>
+                    <span className="numero-asiento">
+                      {j + 1}
+                    </span>
                   </div>
                 ))}
               </div>
             ))}
-            <p>Total: ${total.toFixed(3)}</p>
-            <p>Asientos seleccionados: {selectedSeats.length}</p>
-            <button className="boton">Reservar</button>
+            <p>Total: ${total.toFixed(2)}</p>
+            <div className="asientos-seleccionados">
+              <p>Asientos seleccionados:</p>
+              {selectedSeatsDetails.length > 0 ? (
+                selectedSeatsDetails
+              ) : (
+                <p>No se han seleccionado asientos</p>
+              )}
+            </div>
+            <button className="boton" onClick={handleReservarClick}>
+              Reservar
+            </button>
           </div>
         </div>
       </div>
@@ -212,4 +234,4 @@ const ReservarSilla = () => {
   );
 };
 
-export default ReservarSilla;
+export default DetallesPelicula;

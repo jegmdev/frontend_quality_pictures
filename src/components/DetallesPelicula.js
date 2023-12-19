@@ -12,7 +12,23 @@ const DetallesPelicula = () => {
   const [peli, setPeli] = useState("");
   const [fecha, setFecha] = useState(new Date());
   const [hora, setHora] = useState("");
+  const [sala, setSala] = useState("");
   const [detallesPelicula, setDetallesPelicula] = useState(null);
+
+  const salasAsientos = {
+    sala1: {
+      filas: 5,
+      asientosPorFila: 10,
+    },
+    sala2: {
+      filas: 6,
+      asientosPorFila: 10,
+    },
+    sala3: {
+      filas: 7,
+      asientosPorFila: 10,
+    },
+  };
 
   const horas = ["12pm", "3pm", "6pm", "9pm"];
 
@@ -26,6 +42,7 @@ const DetallesPelicula = () => {
               params: {
                 api_key: "14b5366a2c78d02ef27b5efc74e15ed7",
                 language: "es-ES",
+                sala: sala,
               },
             }
           );
@@ -47,7 +64,7 @@ const DetallesPelicula = () => {
     };
 
     fetchData();
-  }, [id]);
+  }, [id, sala]);
 
   const seleccionarHora = (e) => {
     setHora(e.target.value);
@@ -76,20 +93,34 @@ const DetallesPelicula = () => {
 
   const total = calculateTotal();
 
-  const getRowLetter = (index) => {
-    return String.fromCharCode("A".charCodeAt(0) + index);
+  const getSeatLabel = (row, seat) => {
+    const rowLetter = String.fromCharCode("A".charCodeAt(0) + row);
+    return `${rowLetter}${seat}`;
   };
 
-  const handleReservarClick = () => {
-    console.log("ID de la película seleccionada:", id);
-    // Aquí puedes realizar la lógica para reservar con la película seleccionada y los asientos.
+  const handleReservarClick = async () => {
+    const formattedDate = fecha.toISOString().slice(0, 19).replace('T', ' '); // Formatear la fecha
+    try {
+      const response = await axios.post('http://localhost:3001/api/reservar', {
+        idPelicula: id,
+        fecha: formattedDate,
+        hora,
+        sala,
+        asientos: selectedSeats.map(seat => getSeatLabel(seat.row, seat.seat)),
+        total,
+      });
+  
+      console.log(response.data.message);
+      // Realiza cualquier otra lógica necesaria después de la reserva
+    } catch (error) {
+      console.error('Error al realizar la reserva:', error);
+    }
   };
 
   const selectedSeatsDetails = selectedSeats.map((seat, index) => (
     <span key={`${seat.row}-${seat.seat}`} className="asiento-seleccionado">
-      {getRowLetter(seat.row)}
-      {seat.seat}
-      {index < selectedSeats.length - 1 && " "} {/* Agrega un espacio si no es el último asiento */}
+      {getSeatLabel(seat.row, seat.seat)}
+      {index < selectedSeats.length - 1 && " "} 
     </span>
   ));
 
@@ -161,15 +192,25 @@ const DetallesPelicula = () => {
                   ))}
                 </select>
               </div>
+
+              <div className="campo">
+                <label>Sala:</label>
+                <select value={sala} onChange={(e) => setSala(e.target.value)}>
+                  <option value="">Seleccione una sala</option>
+                  <option value="sala1">Sala 1</option>
+                  <option value="sala2">Sala 2</option>
+                  <option value="sala3">Sala 3</option>
+                </select>
+              </div>
             </div>
           </div>
 
           <div className="sillas-container">
-            <h1>Pantalla</h1>
-            {[...Array(5)].map((_, i) => (
+            <h1>Pantalla - {sala}</h1>
+            {[...Array(salasAsientos[sala]?.filas || 0)].map((_, i) => (
               <div key={i} className="fila">
-                <span className="letra-fila">{getRowLetter(i)}</span>
-                {[...Array(10)].map((_, j) => (
+                <span className="letra-fila">{getSeatLabel(i, 0)}</span>
+                {[...Array(salasAsientos[sala]?.asientosPorFila || 0)].map((_, j) => (
                   <div
                     key={j}
                     className={`silla ${
