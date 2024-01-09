@@ -12,12 +12,12 @@ const Login = () => {
   const auth = useAuth();
 
   if (auth.isAuthenticated) {
-    return <Navigate to='/admin' />
+    return <Navigate to='/admin' />;
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    
     try {
       const response = await fetch('http://localhost:3001/api/login', {
         method: "POST",
@@ -31,15 +31,24 @@ const Login = () => {
       const data = await response.json();
 
       if (response.ok) {
-        setMessage(data.message);
-        // Redirigir al usuario a la página Home después del inicio de sesión exitoso
+        setMessage("Inicio de sesión exitoso");
         navigate("/");
       } else {
-        setMessage(data.message);
+        if (response.status === 400) {
+          setMessage("Correo electrónico o contraseña inválidos");
+        } else if (response.status === 401) {
+          setMessage("No autorizado");
+        } else if (response.status === 404) {
+          setMessage("Usuario no existe");
+        } else if (response.status === 500) {
+          setMessage("Error interno del servidor");
+        } else {
+          setMessage("Error no identificado");
+        }
       }
     } catch (error) {
       console.error("Error en la solicitud:", error);
-      setMessage("Error al intentar iniciar sesión");
+      setMessage("Error de red al intentar iniciar sesión");
     }
   };
 

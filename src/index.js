@@ -10,7 +10,7 @@ import "./css/index.css";
 import App from "./components/App";
 import reportWebVitals from "./reportWebVitals";
 import Cartelera from "./components/Cartelera";
-import Reserva from "./components/Reserva";
+import Reservas from "./components/Reservas";
 import Login from "./auth/Login";
 import Home from "./components/Home";
 import Registro from "./auth/Registro";
@@ -19,7 +19,6 @@ import DashboardAdmin from "./components/DashboardAdmin";
 import MovieForm from "./components/MovieForm.js";
 import DetallesPelicula from "./components/DetallesPelicula.js";
 import { MovieProvider } from "./context/MovieContext.js";
-import Cartelera2 from "./components/Cartelera2";
 
 const router = createBrowserRouter([
   {
@@ -31,12 +30,8 @@ const router = createBrowserRouter([
     element: <Cartelera />,
   },
   {
-    path: "/cartelera2",
-    element: <Cartelera2 />,
-  },
-  {
-    path: "/reserva",
-    element: <Reserva />,
+    path: "/reservas",
+    element: <Reservas />,
   },
   {
     path: "/pelicula/:id",
@@ -53,10 +48,6 @@ const router = createBrowserRouter([
   {
     path: "/admin/peliculas",
     element: <MovieForm />,
-  },
-  {
-    path: "/reserva/:id",
-    element: <DetallesPelicula />,
   },
   {
     path: "/",

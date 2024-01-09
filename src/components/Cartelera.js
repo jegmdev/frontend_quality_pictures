@@ -44,8 +44,8 @@ class Cartelera2 extends Component {
                 return {
                   id: pelicula.id,
                   title: pelicula.title,
-                  genre: "Género de la película", // Puedes modificar esto según la información real de la API
-                  duration: `${movieDetails.runtime} min`, // Obtener la duración desde la nueva llamada
+                  genre: "Género de la película", 
+                  duration: `${movieDetails.runtime} min`,
                   posterPath: `https://image.tmdb.org/t/p/w500${pelicula.poster_path}`,
                 };
               });

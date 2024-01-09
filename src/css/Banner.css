@@ -1,0 +1,38 @@
+/* Banner.css */
+
+.banner-container {
+  height: 500px;
+  width: 100%;
+  padding-top: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+
+.cartelera-content {
+  background: url('https://i.ibb.co/q9jbq37/BANNER-MEDIO.jpg') center/cover no-repeat fixed;
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  height: 500px;
+  width: 100%;
+  padding-top: 180px;
+}
+
+.cartelera-text {
+  font-size: 30px;
+  color: white;
+}
+
+.button {
+  display: inline-block;
+  background-color: #007bff;
+  color: #fff;
+  padding: 15px 40px;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}

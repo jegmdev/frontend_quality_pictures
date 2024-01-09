@@ -9,11 +9,14 @@ import { useParams } from "react-router-dom";
 const DetallesPelicula = () => {
   const { id } = useParams();
   const [selectedSeats, setSelectedSeats] = useState([]);
-  const [peli, setPeli] = useState("");
+  const [pelicula, setPelicula] = useState("");
   const [fecha, setFecha] = useState(new Date());
   const [hora, setHora] = useState("");
   const [sala, setSala] = useState("");
   const [detallesPelicula, setDetallesPelicula] = useState(null);
+  const [reservaMessage, setReservaMessage] = useState(null);
+  const [reservas, setReservas] = useState([]);
+  const [errorReserva, setErrorReserva] = useState(null);
 
   const salasAsientos = {
     Sala1: {
@@ -54,9 +57,13 @@ const DetallesPelicula = () => {
             genero: response.data.genres[0]?.name || "Género Desconocido",
             formato: response.data.imax ? "3D" : "2D",
             duracion: response.data.runtime
-              ? `${Math.floor(response.data.runtime / 60)}h ${response.data.runtime % 60}min`
+              ? `${Math.floor(response.data.runtime / 60)}h ${
+                  response.data.runtime % 60
+                }min`
               : "Duración Desconocida",
           });
+
+          setPelicula(response.data.title);
         } catch (error) {
           console.error("Error al obtener detalles de la película:", error);
         }
@@ -66,11 +73,40 @@ const DetallesPelicula = () => {
     fetchData();
   }, [id, sala]);
 
-  const seleccionarHora = (e) => {
-    setHora(e.target.value);
+  useEffect(() => {
+    const fetchReservas = async () => {
+      try {
+        const response = await axios.get("http://localhost:3001/api/reservas", {
+          params: {
+            idPelicula: id,
+            fecha,
+            hora,
+            sala,
+          },
+        });
+
+        setReservas(response.data);
+      } catch (error) {
+        console.error("Error al obtener las reservas:", error);
+      }
+    };
+
+    fetchReservas();
+  }, [id, fecha, hora, sala]);
+
+  const isSeatReserved = (row, seat) => {
+    const seatLabel = getSeatLabel(row, seat);
+    return reservas.some((r) => r.asientos.includes(seatLabel));
   };
 
   const selectSeat = (row, seat) => {
+    const seatLabel = getSeatLabel(row, seat);
+
+    if (isSeatReserved(row, seat)) {
+      console.log(`El asiento ${seatLabel} ya está reservado.`);
+      return;
+    }
+
     setSelectedSeats((prevSeats) => {
       if (prevSeats.some((s) => s.row === row && s.seat === seat)) {
         return prevSeats.filter((s) => !(s.row === row && s.seat === seat));
@@ -98,29 +134,63 @@ const DetallesPelicula = () => {
     return `${rowLetter}${seat}`;
   };
 
+  const seleccionarHora = (e) => {
+    setHora(e.target.value);
+  };
+
   const handleReservarClick = async () => {
-    const formattedDate = fecha.toISOString().slice(0, 19).replace('T', ' '); // Formatear la fecha
+    const formattedDate = fecha.toISOString().slice(0, 19).replace("T", " ");
+
+    if (
+      reservas.some(
+        (r) => r.fecha === formattedDate && r.hora === hora && r.sala === sala
+      )
+    ) {
+      setErrorReserva(
+        "Ya hay una reserva existente para esta película, fecha, hora y sala. Por favor, elige otra."
+      );
+      return;
+    }
+
     try {
-      const response = await axios.post('http://localhost:3001/api/reservar', {
+      const response = await axios.post("http://localhost:3001/api/reservar", {
         idPelicula: id,
+        pelicula,
         fecha: formattedDate,
         hora,
         sala,
-        asientos: selectedSeats.map(seat => getSeatLabel(seat.row, seat.seat)),
+        asientos: selectedSeats.map((seat) => getSeatLabel(seat.row, seat.seat)),
         total,
       });
-  
-      console.log(response.data.message);
-      // Realiza cualquier otra lógica necesaria después de la reserva
+
+      setReservaMessage(response.data.message);
+
+      setReservas((prevReservas) => [
+        ...prevReservas,
+        {
+          id: response.data.id,
+          fecha: formattedDate,
+          hora,
+          sala,
+          asientos: selectedSeats.map((seat) =>
+            getSeatLabel(seat.row, seat.seat)
+          ),
+          total,
+        },
+      ]);
+
     } catch (error) {
-      console.error('Error al realizar la reserva:', error);
+      console.error("Error al realizar la reserva:", error);
+      setErrorReserva(
+        "Error al realizar la reserva. Por favor, inténtelo de nuevo."
+      );
     }
   };
 
   const selectedSeatsDetails = selectedSeats.map((seat, index) => (
     <span key={`${seat.row}-${seat.seat}`} className="asiento-seleccionado">
       {getSeatLabel(seat.row, seat.seat)}
-      {index < selectedSeats.length - 1 && " "} 
+      {index < selectedSeats.length - 1 && " "}
     </span>
   ));
 
@@ -158,6 +228,16 @@ const DetallesPelicula = () => {
           </div>
         )}
         <h1>Reserva tu entrada</h1>
+        {reservaMessage && (
+          <p
+            className={
+              reservaMessage.includes("correctamente") ? "success" : "error"
+            }
+          >
+            {reservaMessage}
+          </p>
+        )}
+        {errorReserva && <p className="error">{errorReserva}</p>}
         <div className="contenedor">
           <div className="formulario-container">
             <div className="formulario">
@@ -167,6 +247,16 @@ const DetallesPelicula = () => {
                   type="text"
                   value={id}
                   placeholder="ID de la película"
+                  readOnly
+                />
+              </div>
+
+              <div className="campo" id="id-pelicula">
+                <label>Película:</label>
+                <input
+                  type="text"
+                  value={pelicula}
+                  placeholder="Película"
                   readOnly
                 />
               </div>
@@ -210,19 +300,19 @@ const DetallesPelicula = () => {
             {[...Array(salasAsientos[sala]?.filas || 0)].map((_, i) => (
               <div key={i} className="fila">
                 <span className="letra-fila">{getSeatLabel(i, 0)}</span>
-                {[...Array(salasAsientos[sala]?.asientosPorFila || 0)].map((_, j) => (
-                  <div
-                    key={j}
-                    className={`silla ${
-                      isSeatSelected(i, j + 1) ? "seleccionada" : ""
-                    }`}
-                    onClick={() => selectSeat(i, j + 1)}
-                  >
-                    <span className="numero-asiento">
-                      {j + 1}
-                    </span>
-                  </div>
-                ))}
+                {[...Array(salasAsientos[sala]?.asientosPorFila || 0)].map(
+                  (_, j) => (
+                    <div
+                      key={j}
+                      className={`silla ${
+                        isSeatSelected(i, j + 1) ? "seleccionada" : ""
+                      } ${isSeatReserved(i, j + 1) ? "reservada" : ""}`}
+                      onClick={() => selectSeat(i, j + 1)}
+                    >
+                      <span className="numero-asiento">{j + 1}</span>
+                    </div>
+                  )
+                )}
               </div>
             ))}
             <p>Total: ${total.toFixed(2)}</p>

@@ -40,6 +40,9 @@ export default function DefaultLayout({ children }: DefaultLayoutProps) {
                 <Link to="/cartelera">Cartelera</Link>
               </li>
               <li>
+                <Link to="/reservas">Reservas</Link>
+              </li>
+              <li>
                 <Link to="/">Estrenos</Link>
               </li>
               <li>

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "../css/Registro.css";
 import DefaultLayout from "../layout/DefaultLayout.tsx";
 import { useAuth } from './AuthProvider.tsx';
-import { Navigate } from "react-router";
+import { Navigate, useNavigate } from "react-router";
 
 const Registro = () => {
   const [correo, setCorreo] = useState("");
@@ -15,8 +15,9 @@ const Registro = () => {
   const [tipo, setTipo] = useState("");
   const [direccion, setDireccion] = useState("");
   const [celular, setCelular] = useState("");
-  const [documentoIdentidad, setDocumentoIdentidad] = useState("");
+  const [documento_identidad, setdocumento_identidad] = useState("");
   const auth = useAuth();
+  const goTo = useNavigate();
 
   if (auth.isAuthenticated) {
     return <Navigate to='/admin' />
@@ -34,7 +35,7 @@ const Registro = () => {
       !tipo ||
       !direccion ||
       !celular ||
-      !documentoIdentidad
+      !documento_identidad
     ) {
       setError("Por favor, complete todos los campos.");
       return;
@@ -71,7 +72,7 @@ const Registro = () => {
     setError(""); // Limpiar mensajes de error previos
 
     try {
-      const response = await fetch("http://localhost:3001/api/registro", {
+      const response = await fetch('http://localhost:3001/api/registro', {
         method: "POST",
         credentials: "include",
         headers: {
@@ -85,18 +86,26 @@ const Registro = () => {
           tipo,
           direccion,
           celular,
-          documentoIdentidad,
+          documento_identidad,
         }),
       });
 
       if (response.ok) {
-        console.log("Registro exitoso");
-        // Puedes redirigir o realizar otras acciones después de un registro exitoso
+        setError("Registro exitoso")
+        console.log("200");
+        goTo("/login")
       } else {
+        const responseData = await response.json();
+
+        if (response.status === 409) {
+          setError("El usuario ya existe. Por favor, verfica los datos.");
+        } else {
+          setError(responseData.message || "Error en el registro");
+        }
         console.error("Error en el registro");
-        // Puedes manejar errores específicos aquí si es necesario
       }
     } catch (error) {
+      setError("Error en la solicitud")
       console.error("Error en la solicitud:", error);
     }
   };
@@ -105,6 +114,7 @@ const Registro = () => {
     <DefaultLayout>
       <div className="Registro">
         <h1>Registro</h1>
+        {error && <p className="error">{error}</p>}
         <form onSubmit={validarFormulario}>
           <input
             type="email"
@@ -162,12 +172,11 @@ const Registro = () => {
           <input
             type="text"
             placeholder="Documento de identidad"
-            value={documentoIdentidad}
-            onChange={(e) => setDocumentoIdentidad(e.target.value)}
+            value={documento_identidad}
+            onChange={(e) => setdocumento_identidad(e.target.value)}
           />
           <button type="submit">Registrarme</button>
         </form>
-        {error && <p className="error">{error}</p>}
       </div>
     </DefaultLayout>
   );

@@ -3,6 +3,8 @@ import "../css/App.css";
 import SliderComponent from "./SliderComponent";
 import Carousel from "./Carousel";
 import DefaultLayout from "../layout/DefaultLayout.tsx";
+import ImageBanner from "./imageBanner.js"
+import Footer from "./footer"
 
 function Home() {
   return (
@@ -13,10 +15,23 @@ function Home() {
         </div>
 
         <div className="Carousel-Cartelera">
-          <h1>Estrenos</h1>
+          <h1>Cartelera</h1>
           <Carousel />
           <br></br>
         </div>
+
+        <div className="banner">
+          <ImageBanner />
+        </div>
+
+        <div className="Carousel-Estrenos">
+          <h1>Estrenos</h1>
+          <Carousel />
+          <br></br>
+          <br></br>
+        </div>
+
+        <Footer/>
       </div>
     </DefaultLayout>
   );

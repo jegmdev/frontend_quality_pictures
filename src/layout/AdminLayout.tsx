@@ -37,7 +37,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                 <Link to="/admin/peliculas">Administrar Películas</Link>
               </li>
               <li>
-                <Link to="/admin/peliculas">Lista Reservas</Link>
+                <Link to="/admin/reservas">Lista Reservas</Link>
               </li>
               <li>
                 <Link to="/admin/peliculas">Cerrar sesión</Link>

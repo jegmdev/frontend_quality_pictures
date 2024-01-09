@@ -6,18 +6,42 @@ import "../css/Carousel.css";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-function CustomNextArrow(props) {
-  const { className, style, onClick } = props;
-  return (
-    <div
-      className={className}
-      style={{ ...style, display: "block" }}
-      onClick={onClick}
-    />
-  );
-}
+const fetchData = async (url, params) => {
+  try {
+    const response = await axios.get(url, { params });
+    return response.data;
+  } catch (error) {
+    console.error("Error al obtener los datos:", error);
+    throw error;
+  }
+};
 
-function CustomPrevArrow(props) {
+const getMovieDetails = async (movie) => {
+  try {
+    const detailsResponse = await fetchData(
+      `https://api.themoviedb.org/3/movie/${movie.id}`,
+      {
+        api_key: "14b5366a2c78d02ef27b5efc74e15ed7",
+        language: "es-ES",
+      }
+    );
+
+    return {
+      id: movie.id,
+      title: movie.title,
+      overview: detailsResponse.overview,
+      image: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
+      showtimes: ["10:00 AM", "1:00 PM", "4:00 PM", "7:00 PM"],
+      genre: detailsResponse.genres.map((genre) => genre.name).join(", "),
+      duration: detailsResponse.runtime,
+    };
+  } catch (error) {
+    console.error("Error al obtener detalles de la película:", error);
+    return null;
+  }
+};
+
+const CustomNextArrow = (props) => {
   const { className, style, onClick } = props;
   return (
     <div
@@ -26,53 +50,47 @@ function CustomPrevArrow(props) {
       onClick={onClick}
     />
   );
-}
+};
+
+const CustomPrevArrow = (props) => {
+  const { className, style, onClick } = props;
+  return (
+    <div
+      className={className}
+      style={{ ...style, display: "block" }}
+      onClick={onClick}
+    />
+  );
+};
 
 const Carousel = () => {
   const [movieData, setMovieData] = useState([]);
 
   const fetchMovieData = async () => {
     try {
-      const response = await axios.get(
+      const response = await fetchData(
         "https://api.themoviedb.org/3/movie/now_playing",
         {
-          params: {
-            api_key: "14b5366a2c78d02ef27b5efc74e15ed7",
-            language: "es-ES",
-            page: 1,
-          },
+          api_key: "14b5366a2c78d02ef27b5efc74e15ed7",
+          language: "es-ES",
+          page: 1,
         }
       );
 
-      const movies = response.data.results.slice(0, 6).map(async (movie) => {
-        const detailsResponse = await axios.get(
-          `https://api.themoviedb.org/3/movie/${movie.id}`,
-          {
-            params: {
-              api_key: "14b5366a2c78d02ef27b5efc74e15ed7",
-              language: "es-ES",
-            },
-          }
-        );
+      const movies = await Promise.all(
+        response.results
+          .filter(
+            (pelicula) =>
+              pelicula.title !==
+              "Los Juegos del Hambre: Balada de pájaros cantores y serpientes",
+          )
+          .slice(0, 6)
+          .map((movie) => getMovieDetails(movie))
+      );
 
-        return {
-          title: movie.title,
-          overview: detailsResponse.data.overview,
-          image: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
-          showtimes: ["10:00 AM", "1:00 PM", "4:00 PM", "7:00 PM"],
-          trailerLink: `https://www.youtube.com/watch?v=${movie.id}`,
-          genre: detailsResponse.data.genres
-            .map((genre) => genre.name)
-            .join(", "),
-          duration: detailsResponse.data.runtime,
-        };
-      });
-
-      Promise.all(movies).then((resolvedMovies) => {
-        setMovieData(resolvedMovies);
-      });
+      setMovieData(movies.filter((movie) => movie !== null));
     } catch (error) {
-      console.error("Error al obtener los datos de las películas:", error);
+      console.error("Error al obtener datos de películas:", error);
     }
   };
 
@@ -126,10 +144,7 @@ const Carousel = () => {
               ))}
             </ul>
             <div className="overlay">
-              <a href={movie.trailerLink} className="button">
-                Ver tráiler
-              </a>
-              <Link className="button" to="/reserva">
+              <Link className="button" to={`/pelicula/${movie.id}`}>
                 Reservar
               </Link>
             </div>
