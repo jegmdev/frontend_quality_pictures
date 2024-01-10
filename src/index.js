@@ -11,7 +11,7 @@ import App from "./components/App";
 import reportWebVitals from "./reportWebVitals";
 import Cartelera from "./components/Cartelera";
 import Reservas from "./components/Reservas";
-import Login from "./auth/Login";
+import Login from "./auth/Login.tsx";
 import Home from "./components/Home";
 import Registro from "./auth/Registro";
 import PrivateRoute from "./routes/PrivateRoute";

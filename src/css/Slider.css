@@ -11,7 +11,7 @@
   
   .slider-slide-background {
     width: 100%;
-    height: 700px; /* Ajusta la altura de la imagen de fondo */
+    height: 700px; 
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;

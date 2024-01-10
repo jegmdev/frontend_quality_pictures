@@ -1,19 +1,26 @@
 export interface AuthResponse {
     body: {
-        user: User;
-        accesToken: string;
-        refreshToken: string;
+      user: User;
+      accessToken: string;
+      refreshToken: string;
     };
-}
-
-export interface AuthResponseError {
+  }
+  export interface AuthResponseError {
     body: {
-        error: string;
+      error: string;
     };
-}
-
-export interface User {
+  }
+  
+  export interface User {
     _id: string;
     name: string;
     username: string;
-}
+  }
+  
+  export interface AccessTokenResponse {
+    statusCode: number;
+    body: {
+      accessToken: string;
+    };
+    error?: string;
+  }
