@@ -73,40 +73,7 @@ const DetallesPelicula = () => {
     fetchData();
   }, [id, sala]);
 
-  useEffect(() => {
-    const fetchReservas = async () => {
-      try {
-        const response = await axios.get("http://localhost:3001/api/reservas", {
-          params: {
-            idPelicula: id,
-            fecha,
-            hora,
-            sala,
-          },
-        });
-
-        setReservas(response.data);
-      } catch (error) {
-        console.error("Error al obtener las reservas:", error);
-      }
-    };
-
-    fetchReservas();
-  }, [id, fecha, hora, sala]);
-
-  const isSeatReserved = (row, seat) => {
-    const seatLabel = getSeatLabel(row, seat);
-    return reservas.some((r) => r.asientos.includes(seatLabel));
-  };
-
   const selectSeat = (row, seat) => {
-    const seatLabel = getSeatLabel(row, seat);
-
-    if (isSeatReserved(row, seat)) {
-      console.log(`El asiento ${seatLabel} ya está reservado.`);
-      return;
-    }
-
     setSelectedSeats((prevSeats) => {
       if (prevSeats.some((s) => s.row === row && s.seat === seat)) {
         return prevSeats.filter((s) => !(s.row === row && s.seat === seat));
@@ -140,17 +107,6 @@ const DetallesPelicula = () => {
 
   const handleReservarClick = async () => {
     const formattedDate = fecha.toISOString().slice(0, 19).replace("T", " ");
-
-    if (
-      reservas.some(
-        (r) => r.fecha === formattedDate && r.hora === hora && r.sala === sala
-      )
-    ) {
-      setErrorReserva(
-        "Ya hay una reserva existente para esta película, fecha, hora y sala. Por favor, elige otra."
-      );
-      return;
-    }
 
     try {
       const response = await axios.post("http://localhost:3001/api/reservar", {
@@ -305,8 +261,7 @@ const DetallesPelicula = () => {
                     <div
                       key={j}
                       className={`silla ${
-                        isSeatSelected(i, j + 1) ? "seleccionada" : ""
-                      } ${isSeatReserved(i, j + 1) ? "reservada" : ""}`}
+                        isSeatSelected(i, j + 1) ? "seleccionada" : "" }`}
                       onClick={() => selectSeat(i, j + 1)}
                     >
                       <span className="numero-asiento">{j + 1}</span>

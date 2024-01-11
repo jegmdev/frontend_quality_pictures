@@ -18,7 +18,6 @@ import PrivateRoute from "./routes/PrivateRoute";
 import DashboardAdmin from "./components/DashboardAdmin";
 import MovieForm from "./components/MovieForm.js";
 import DetallesPelicula from "./components/DetallesPelicula.js";
-import { MovieProvider } from "./context/MovieContext.js";
 
 const router = createBrowserRouter([
   {
@@ -64,12 +63,10 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <MovieProvider>
       <AuthProvider>
         <RouterProvider router={router} />
       </AuthProvider>
       <App />
-    </MovieProvider>
   </React.StrictMode>
 );
 

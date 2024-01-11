@@ -3,7 +3,7 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import "../css/Login.css";
 import DefaultLayout from "../layout/DefaultLayout.tsx";
 import { useAuth } from "./AuthProvider.tsx";
-import { AuthResponse, AuthResponseError } from "../types/types.ts";
+import { AuthResponse } from "../types/types.ts";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -25,27 +25,11 @@ const Login = () => {
         body: JSON.stringify({ email, password }),
       });
 
-      if (response.ok) {
-        const responseData = await response.json();
-        console.log("Respuesta completa del servidor:", responseData);
-        console.log("Contenido de responseData.body:", responseData.body);
-        console.log("accessToken:", responseData.body.accessToken);
-        console.log("refreshToken:", responseData.body.refreshToken);
-        console.log("user:", responseData.body.user);
-
-        if (
-          responseData.body &&
-          responseData.body.accessToken &&
-          responseData.body.refreshToken
-        ) {
-          auth.saveUser(responseData);
-          navigate("/admin");
-        } else {
-          console.log("Unexpected response structure:", responseData);
-          setMessage(
-            "No se pudo obtener el token de acceso. Inténtalo de nuevo."
-          );
-        }
+      if (response.status === 200) {
+        const json = (await response.json()) as AuthResponse;
+        console.log("Status 200");
+        auth.saveUser(json);
+        navigate("/admin");
       } else {
         if (response.status === 400) {
           setMessage("Correo electrónico o contraseña inválidos");

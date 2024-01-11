@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "../css/Menu.css";
 
-interface AdminLayoutProps {
+interface DashboardLayoutProps {
   children: React.ReactNode;
 }
 
-export default function AdminLayout({ children }: AdminLayoutProps) {
+export default function Dashboard({ children }: DashboardLayoutProps) {
   const [menuItemsVisible, setMenuItemsVisible] = useState(true);
 
   const toggleMenuItems = () => {
@@ -33,14 +33,17 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
               </div>
             </div>
             <ul className={`menu-items ${menuItemsVisible ? "" : "hidden"}`}>
-              <li>
-                <Link to="/admin/peliculas">Administrar Películas</Link>
+            <li>
+                <Link to="/">Home</Link>
               </li>
               <li>
-                <Link to="/admin/reservas">Lista Reservas</Link>
+                <Link to="/cartelera">Cartelera</Link>
               </li>
               <li>
-                <Link to="/admin/peliculas">Cerrar sesión</Link>
+                <Link to="/reservas">Lista Reservas</Link>
+              </li>
+              <li>
+                <Link to="">Cerrar sesión</Link>
               </li>
             </ul>
           </nav>
