@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import DefaultLayout from "../layout/DefaultLayout.tsx";
 import "../css/Cartelera.css";
 
-class Cartelera2 extends Component {
+class Cartelera extends Component {
   constructor() {
     super();
     this.state = {
@@ -44,7 +44,7 @@ class Cartelera2 extends Component {
                 return {
                   id: pelicula.id,
                   title: pelicula.title,
-                  genre: "Género de la película", 
+                  genre: movieDetails.genres.map((genre) => genre.name).join(", "),
                   duration: `${movieDetails.runtime} min`,
                   posterPath: `https://image.tmdb.org/t/p/w500${pelicula.poster_path}`,
                 };
@@ -88,4 +88,4 @@ class Cartelera2 extends Component {
   }
 }
 
-export default Cartelera2;
+export default Cartelera;

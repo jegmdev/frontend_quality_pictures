@@ -1,8 +1,6 @@
 import { useContext, createContext, useState, useEffect } from "react";
 import type { AuthResponse, AccessTokenResponse, User } from "../types/types";
 import React from "react";
-import { AccessToken } from "express-openid-connect";
-import { set } from "date-fns";
 
 interface AuthProviderProps {
   children: React.ReactNode;
@@ -80,6 +78,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   async function checkAuth() {
     if (accessToken) {
+      alert("Token existe");
       // usuario autenticado
     } else {
       // usuario no autenticado
@@ -92,6 +91,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
             saveSessionInfo(userInfo, newAccessToken, token);
           }
         }
+      } else {
+        alert("No refresh token");
       }
     }
   }
@@ -114,8 +115,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     console.log("getRefreshToken called");
     const tokenData = localStorage.getItem("token");
     if (tokenData) {
-      const { token } = JSON.parse(tokenData);
-      return token;
+      return JSON.parse(tokenData);
     } else {
       console.log("Error al obtener el token");
     }
