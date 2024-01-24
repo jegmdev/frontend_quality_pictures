@@ -73,17 +73,61 @@ const DetallesPelicula = () => {
     fetchData();
   }, [id, sala]);
 
+  useEffect(() => {
+    const fetchReservasExistencias = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:3001/api/reservas",
+          {
+            params: {
+              idPelicula: id,
+              fecha: fecha.toISOString().slice(0, 10),
+              hora,
+              sala,
+            },
+          }
+        );
+
+        setReservas(response.data);
+      } catch (error) {
+        console.error("Error al obtener las reservas existentes:", error);
+      }
+    };
+
+    if (id && fecha && hora && sala) {
+      fetchReservasExistencias();
+    }
+  }, [id, sala, fecha, hora]);
+
   const selectSeat = (row, seat) => {
+    const isReserved = reservas.some((reserva) =>
+      reserva.asientos.includes(getSeatLabel(row,seat))
+   );
+
     setSelectedSeats((prevSeats) => {
-      if (prevSeats.some((s) => s.row === row && s.seat === seat)) {
-        return prevSeats.filter((s) => !(s.row === row && s.seat === seat));
-      } else if (prevSeats.length < 5) {
-        return [...prevSeats, { row, seat }];
-      } else {
+
+      if (isReserved) {
         return prevSeats;
       }
+
+      if (prevSeats.some ((s) => s.row === row && s.seat === seat)) {
+        return prevSeats.filter((s) => !(s.row === row && s.seat === seat)) ;
+      }
+
+      if (prevSeats.length < 5) {
+        return [...prevSeats, { row, seat }];
+      }
+
+      return prevSeats;
     });
-  };
+  }; 
+
+  const reservedSeatsLabel = (
+    <p className="asientos-reservados-label">
+      Asientos Reservados: Estos asientos ya han sido seleccionados por otros usuarios.
+    </p>
+  );
+
 
   const isSeatSelected = (row, seat) => {
     return selectedSeats.some((s) => s.row === row && s.seat === seat);
@@ -115,7 +159,9 @@ const DetallesPelicula = () => {
         fecha: formattedDate,
         hora,
         sala,
-        asientos: selectedSeats.map((seat) => getSeatLabel(seat.row, seat.seat)),
+        asientos: selectedSeats.map((seat) =>
+          getSeatLabel(seat.row, seat.seat)
+        ),
         total,
       });
 
@@ -135,6 +181,7 @@ const DetallesPelicula = () => {
         },
       ]);
 
+      window.location.reload();
     } catch (error) {
       console.error("Error al realizar la reserva:", error);
       setErrorReserva(
@@ -253,6 +300,7 @@ const DetallesPelicula = () => {
 
           <div className="sillas-container">
             <h1>Pantalla - {sala}</h1>
+            {reservas.length > 0 && reservedSeatsLabel}
             {[...Array(salasAsientos[sala]?.filas || 0)].map((_, i) => (
               <div key={i} className="fila">
                 <span className="letra-fila">{getSeatLabel(i, 0)}</span>
@@ -261,7 +309,13 @@ const DetallesPelicula = () => {
                     <div
                       key={j}
                       className={`silla ${
-                        isSeatSelected(i, j + 1) ? "seleccionada" : "" }`}
+                        isSeatSelected(i, j + 1) ? "seleccionada" : ""} ${
+                        reservas.some((reserva) =>
+                          reserva.asientos.includes(getSeatLabel(i, j + 1))
+                        )
+                          ? "reservada"
+                          : ""
+                      }`}
                       onClick={() => selectSeat(i, j + 1)}
                     >
                       <span className="numero-asiento">{j + 1}</span>

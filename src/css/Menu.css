@@ -7,7 +7,6 @@
   display: none;
 }
 
-
 .menu {
   background-color: rgba(23, 39, 63, 1);
   color: white;
@@ -64,6 +63,7 @@
 
 .menu-items li {
   margin-right: 20px;
+  font-weight: bold;
 }
 
 .menu-items a {

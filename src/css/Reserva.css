@@ -126,6 +126,18 @@
   background-color: #007bff;
 }
 
+.silla.reservada {
+  background-color: darkmagenta;
+  cursor: not-allowed;
+}
+
+.asientos-reservados-label {
+  margin-top: 10px;
+  font-size: 1.2em;
+  color: darkmagenta; /* Mismo color que se usa para sillas reservadas */
+}
+
+
 /* Botón de Reserva */
 .boton {
   margin-top: 10px;

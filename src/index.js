@@ -13,16 +13,22 @@ import Cartelera from "./components/Cartelera";
 import Reservas from "./components/Reservas";
 import Login from "./auth/Login.tsx";
 import Home from "./components/Home";
+import HomeAdmin from "./components/HomeAdmin.js";
 import Registro from "./auth/Registro";
 import PrivateRoute from "./routes/PrivateRoute";
 import DashboardAdmin from "./components/DashboardAdmin";
 import MovieForm from "./components/MovieForm.js";
 import DetallesPelicula from "./components/DetallesPelicula.js";
+import ListaReservas from "./components/Reservas";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Home />,
+  },
+  {
+    path: "/admin",
+    element: <HomeAdmin />,
   },
   {
     path: "/cartelera",
@@ -31,10 +37,6 @@ const router = createBrowserRouter([
   {
     path: "/reservas",
     element: <Reservas />,
-  },
-  {
-    path: "/pelicula/:id",
-    element: <DetallesPelicula />,
   },
   {
     path: "/login",
@@ -47,6 +49,14 @@ const router = createBrowserRouter([
   {
     path: "/admin/peliculas",
     element: <MovieForm />,
+  },
+  {
+    path: "/admin/listareservas",
+    element: <ListaReservas />,
+  },
+  {
+    path: "/pelicula/:id",
+    element: <DetallesPelicula />,
   },
   {
     path: "/",
@@ -69,8 +79,4 @@ root.render(
       <App />
   </React.StrictMode>
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();

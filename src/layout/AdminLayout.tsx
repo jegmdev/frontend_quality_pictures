@@ -1,16 +1,25 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../css/Menu.css";
+import { useAuth } from "../auth/AuthProvider.tsx"; // Ajusta la ruta según la ubicación real
 
-interface DashboardLayoutProps {
+interface AdminLayoutProps {
   children: React.ReactNode;
 }
 
-export default function Dashboard({ children }: DashboardLayoutProps) {
+export default function AdminLayout({ children }: AdminLayoutProps) {
   const [menuItemsVisible, setMenuItemsVisible] = useState(true);
+  const { logout } = useAuth();
+  const navigate = useNavigate();
 
   const toggleMenuItems = () => {
     setMenuItemsVisible((prevVisibility) => !prevVisibility);
+  };
+
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+    // Puedes redirigir al usuario o realizar otras tareas después de cerrar sesión si es necesario
   };
 
   return (
@@ -33,17 +42,17 @@ export default function Dashboard({ children }: DashboardLayoutProps) {
               </div>
             </div>
             <ul className={`menu-items ${menuItemsVisible ? "" : "hidden"}`}>
-            <li>
-                <Link to="/">Home</Link>
+              <li>
+                <Link to="/admin">Home</Link>
               </li>
               <li>
-                <Link to="/cartelera">Cartelera</Link>
+                <Link to="/admin/peliculas">Administrar Películas</Link>
               </li>
               <li>
-                <Link to="/reservas">Lista Reservas</Link>
+                <Link to="/admin/listareservas">Lista Reservas</Link>
               </li>
               <li>
-                <Link to="">Cerrar sesión</Link>
+                <li onClick={handleLogout}>Cerrar Sesión</li>
               </li>
             </ul>
           </nav>

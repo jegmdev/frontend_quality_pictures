@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "../css/MovieForm.css";
-import AdminLayout from "../layout/DashboardLayout.tsx";
+import AdminLayout from "../layout/AdminLayout.tsx";
 
 class MovieForm extends Component {
   constructor(props) {

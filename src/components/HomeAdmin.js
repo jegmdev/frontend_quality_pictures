@@ -1,12 +1,12 @@
-import React from 'react';
-import AdminLayout from '../layout/AdminLayout.tsx'; 
-import '../css/Menu.css';
-import SliderComponent from './SliderComponent';
-import Carousel from './Carousel';
-import ImageBanner from './imageBanner.js';
-import Footer from './footer';
+import React from "react";
+import "../css/App.css";
+import SliderComponent from "./SliderComponent";
+import Carousel from "./Carousel";
+import ImageBanner from "./imageBanner.js"
+import Footer from "./footer"
+import AdminLayout from "../layout/AdminLayout.tsx";
 
-const DashboardAdmin = () => {
+function Home() {
   return (
     <AdminLayout>
       <div className="App">
@@ -17,7 +17,7 @@ const DashboardAdmin = () => {
         <div className="Carousel-Cartelera">
           <h1>Cartelera</h1>
           <Carousel />
-          <br />
+          <br></br>
         </div>
 
         <div className="banner">
@@ -27,14 +27,14 @@ const DashboardAdmin = () => {
         <div className="Carousel-Estrenos">
           <h1>Estrenos</h1>
           <Carousel />
-          <br />
-          <br />
+          <br></br>
+          <br></br>
         </div>
 
-        <Footer />
+        <Footer/>
       </div>
     </AdminLayout>
   );
 }
 
-export default DashboardAdmin;
+export default Home;

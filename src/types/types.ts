@@ -1,4 +1,5 @@
 export interface AuthResponse {
+  getAccessToken: string;
   accessToken: string;
   refreshToken: string;
   user: User;
