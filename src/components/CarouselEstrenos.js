@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -52,7 +53,7 @@ const Carousel = () => {
       />
     );
   };
-  
+
   const CustomPrevArrow = (props) => {
     const { className, style, onClick } = props;
     return (
@@ -107,6 +108,11 @@ const Carousel = () => {
               {movie.showtimes.map((showtime, i) => (
                 <li key={i}>{showtime}</li>
               ))}
+              <div className="overlay">
+                <Link className="button" to={`/pelicula/${movie.id}`}>
+                  Reservar
+                </Link>
+              </div>
             </ul>
           </div>
         ))}

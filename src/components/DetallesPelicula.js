@@ -37,8 +37,9 @@ const DetallesPelicula = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (id) {
+      if (id && id.length > 4) {
         try {
+          // Intenta obtener detalles de la película desde la primera API
           const response = await axios.get(
             `https://api.themoviedb.org/3/movie/${id}`,
             {
@@ -65,7 +66,33 @@ const DetallesPelicula = () => {
 
           setPelicula(response.data.title);
         } catch (error) {
-          console.error("Error al obtener detalles de la película:", error);
+          console.error(
+            "Error al obtener detalles de la película desde la primera API:",
+            error
+          );
+        }
+      } else if (id) {
+        // Si el id tiene 4 dígitos o menos, busca solo en la segunda API
+        try {
+          const response = await axios.get(
+            `http://localhost:3001/api/estrenos/${id}`
+          );
+
+          setDetallesPelicula({
+            posterPath: response.data.imagen_promocional,
+            titulo: response.data.titulo,
+            sinopsis: response.data.sinopsis,
+            genero: response.data.genero,
+            formato: "2D", // Ajusta según la información que proporciona la segunda API
+            duracion: response.data.duracion,
+          });
+
+          setPelicula(response.data.titulo);
+        } catch (secondApiError) {
+          console.error(
+            "Error al obtener detalles de la película desde la segunda API:",
+            secondApiError
+          );
         }
       }
     };

@@ -21,6 +21,7 @@ import DashboardAdmin from "./components/DashboardAdmin";
 import MovieForm from "./components/MovieForm.js";
 import DetallesPelicula from "./components/DetallesPelicula.js";
 import ListaReservas from "./components/ListaReservas.js";
+import Estrenos from "./components/Estrenos.js";
 
 const router = createBrowserRouter([
   {
@@ -32,8 +33,8 @@ const router = createBrowserRouter([
     element: <Cartelera />,
   },
   {
-    path: "/reservas",
-    element: <Reservas />,
+    path: "/estrenos",
+    element: <Estrenos />,
   },
   {
     path: "/login",
@@ -70,6 +71,10 @@ const router = createBrowserRouter([
       {
         path: "/CarteleraAdmin",
         element: <CarteleraAdmin />,
+      },
+      {
+        path: "/reservas",
+        element: <Reservas />,
       }
     ],
   },

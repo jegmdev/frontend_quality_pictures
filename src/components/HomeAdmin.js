@@ -26,7 +26,7 @@ function Home() {
         </div>
 
         <div className="Carousel-Estrenos">
-          <h1>Estrenos</h1>
+          <h1>Restrenos</h1>
           <CarouselEstrenos/>
           <br>
           </br>

@@ -25,6 +25,12 @@
   padding: 10px;
 }
 
+.poster img {
+  width: auto;
+  max-width: 500px;
+  object-fit: contain;
+}
+
 .info-peli{
   padding: 10px;
 }

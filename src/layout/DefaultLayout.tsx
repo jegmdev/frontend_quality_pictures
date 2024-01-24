@@ -40,10 +40,10 @@ export default function DefaultLayout({ children }: DefaultLayoutProps) {
                 <Link to="/cartelera">Cartelera</Link>
               </li>
               <li>
-                <Link to="/reservas">Reservas</Link>
+                <Link to="/estrenos">Restrenos</Link>
               </li>
               <li>
-                <Link to="/">Estrenos</Link>
+                <Link to="/reservas">Reservas</Link>
               </li>
               <li>
                 <Link to="/login">Iniciar sesión</Link>
