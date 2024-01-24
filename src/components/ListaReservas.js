@@ -31,7 +31,7 @@ const ListaReservas = () => {
   return (
     <AdminLayout>
       <div className="lista-reservas">
-        <h2>Lista de Reservas</h2>
+        <h2>Admin - Lista de reservas</h2>
         <div className="table-container">
           <table className="reserva-table">
             <thead>

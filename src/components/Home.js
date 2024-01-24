@@ -5,6 +5,7 @@ import Carousel from "./Carousel";
 import DefaultLayout from "../layout/DefaultLayout.tsx";
 import ImageBanner from "./imageBanner.js"
 import Footer from "./footer"
+import CarouselEstrenos from "./CarouselEstrenos.js";
 
 function Home() {
   return (
@@ -26,9 +27,9 @@ function Home() {
 
         <div className="Carousel-Estrenos">
           <h1>Estrenos</h1>
-          <Carousel />
-          <br></br>
-          <br></br>
+          <CarouselEstrenos/>
+          <br>
+          </br>
         </div>
 
         <Footer/>

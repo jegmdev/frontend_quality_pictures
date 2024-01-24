@@ -46,14 +46,15 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                 <Link to="/admin">Home</Link>
               </li>
               <li>
-                <Link to="/admin/peliculas">Administrar Películas</Link>
+                <Link to="/admin/peliculas">Crear Películas</Link>
               </li>
               <li>
-                <Link to="/admin/listareservas">Lista Reservas</Link>
+                <Link to="/CarteleraAdmin">Administrar Cartelera</Link>
               </li>
               <li>
-                <li onClick={handleLogout}>Cerrar Sesión</li>
+                <Link to="/admin-reservas">Lista Reservas</Link>
               </li>
+              <li onClick={handleLogout}>Cerrar Sesión</li>
             </ul>
           </nav>
         </div>

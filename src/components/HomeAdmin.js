@@ -2,6 +2,7 @@ import React from "react";
 import "../css/App.css";
 import SliderComponent from "./SliderComponent";
 import Carousel from "./Carousel";
+import CarouselEstrenos from "./CarouselEstrenos.js";
 import ImageBanner from "./imageBanner.js"
 import Footer from "./footer"
 import AdminLayout from "../layout/AdminLayout.tsx";
@@ -26,9 +27,9 @@ function Home() {
 
         <div className="Carousel-Estrenos">
           <h1>Estrenos</h1>
-          <Carousel />
-          <br></br>
-          <br></br>
+          <CarouselEstrenos/>
+          <br>
+          </br>
         </div>
 
         <Footer/>
