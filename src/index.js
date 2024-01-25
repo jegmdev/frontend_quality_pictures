@@ -16,7 +16,7 @@ import Login from "./auth/Login.tsx";
 import Home from "./components/Home";
 import HomeAdmin from "./components/HomeAdmin.js";
 import Registro from "./auth/Registro";
-import PrivateRoute from "./routes/PrivateRoute";
+import PrivateRoute from "./routes/PrivateRoute.tsx";
 import DashboardAdmin from "./components/DashboardAdmin";
 import MovieForm from "./components/MovieForm.js";
 import DetallesPelicula from "./components/DetallesPelicula.js";

@@ -54,7 +54,7 @@ const DefaultLayout = ({ children }: DefaultLayoutProps) => {
                 <Link to="/reservas">Reservas</Link>
               </li>
               <li>
-                <Link to="/">Estrenos</Link>
+                <Link to="/estrenos">Restrenos</Link>
               </li>
               <li>
                 {isAuthenticated ? (

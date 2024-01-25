@@ -2,9 +2,16 @@ export interface AuthResponse {
   getAccessToken: string;
   accessToken: string;
   refreshToken: string;
-  user: User;
+  user: {
+    email: string;
+    nombre: string;
+    apellidos: string;
+    tipo: string; // Asegúrate de que tipo esté incluido aquí
+    direccion: string;
+  };
   message: string;
 }
+
 
 export interface AuthResponseError {
   body: {
