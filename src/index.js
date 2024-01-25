@@ -50,14 +50,24 @@ const router = createBrowserRouter([
   },
   {
     path: "/",
-    element: <PrivateRoute />,
+    element: <PrivateRoute adminOnly={false} />,
+    children: [
+      {
+        path: "/reservas",
+        element: <Reservas />,
+      },
+    ],
+  },
+  {
+    path: "/",
+    element: <PrivateRoute adminOnly={true} />,
     children: [
       {
         path: "/admin",
         element: <HomeAdmin />,
       },
       {
-        path: "/admin",
+        path: "/admin/dashboard",
         element: <DashboardAdmin />,
       },
       {
@@ -69,13 +79,9 @@ const router = createBrowserRouter([
         element: <ListaReservas />,
       },
       {
-        path: "/CarteleraAdmin",
+        path: "/admin/cartelera",
         element: <CarteleraAdmin />,
       },
-      {
-        path: "/reservas",
-        element: <Reservas />,
-      }
     ],
   },
 ]);
@@ -83,10 +89,10 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-      <AuthProvider>
-        <RouterProvider router={router} />
-      </AuthProvider>
-      <App />
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
+    <App />
   </React.StrictMode>
 );
 reportWebVitals();

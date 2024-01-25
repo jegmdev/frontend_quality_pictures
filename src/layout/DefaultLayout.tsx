@@ -1,16 +1,27 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../css/Menu.css";
+import { useAuth } from "../auth/AuthProvider.tsx";
 
 interface DefaultLayoutProps {
   children: React.ReactNode;
 }
 
-export default function DefaultLayout({ children }: DefaultLayoutProps) {
+const DefaultLayout = ({ children }: DefaultLayoutProps) => {
   const [menuItemsVisible, setMenuItemsVisible] = useState(true);
+  const { isAuthenticated, logout } = useAuth();
+  const navigate = useNavigate();
+  console.log("Estado de autenticación en DefaultLayout:", isAuthenticated);
 
   const toggleMenuItems = () => {
     setMenuItemsVisible((prevVisibility) => !prevVisibility);
+  };
+
+  const handleLogout = async () => {
+    console.log("Antes de cerrar sesión");
+    await logout();
+    console.log("Después de cerrar sesión");
+    navigate("/login");
   };
 
   return (
@@ -40,13 +51,17 @@ export default function DefaultLayout({ children }: DefaultLayoutProps) {
                 <Link to="/cartelera">Cartelera</Link>
               </li>
               <li>
-                <Link to="/estrenos">Restrenos</Link>
-              </li>
-              <li>
                 <Link to="/reservas">Reservas</Link>
               </li>
               <li>
-                <Link to="/login">Iniciar sesión</Link>
+                <Link to="/">Estrenos</Link>
+              </li>
+              <li>
+                {isAuthenticated ? (
+                  <span onClick={handleLogout}>Cerrar Sesión</span>
+                ) : (
+                  <Link to="/login">Iniciar Sesión</Link>
+                )}
               </li>
             </ul>
           </nav>
@@ -55,4 +70,6 @@ export default function DefaultLayout({ children }: DefaultLayoutProps) {
       <main>{children}</main>
     </>
   );
-}
+};
+
+export default DefaultLayout;
