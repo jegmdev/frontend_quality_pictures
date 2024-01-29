@@ -16,12 +16,13 @@ import Login from "./auth/Login.tsx";
 import Home from "./components/Home";
 import HomeAdmin from "./components/HomeAdmin.js";
 import Registro from "./auth/Registro";
-import PrivateRoute from "./routes/PrivateRoute.tsx";
+import PrivateRoute from "./routes/PrivateRoute";
 import DashboardAdmin from "./components/DashboardAdmin";
 import MovieForm from "./components/MovieForm.js";
 import DetallesPelicula from "./components/DetallesPelicula.js";
 import ListaReservas from "./components/ListaReservas.js";
 import Estrenos from "./components/Estrenos.js";
+import NotFound from "./components/404.js";
 
 const router = createBrowserRouter([
   {
@@ -84,6 +85,10 @@ const router = createBrowserRouter([
       },
     ],
   },
+  {
+    path: "*",
+    element: <NotFound />,
+  },
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -91,8 +96,8 @@ root.render(
   <React.StrictMode>
     <AuthProvider>
       <RouterProvider router={router} />
+      <App />
     </AuthProvider>
-    <App />
   </React.StrictMode>
 );
 reportWebVitals();

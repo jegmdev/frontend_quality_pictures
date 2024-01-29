@@ -51,14 +51,11 @@ const DefaultLayout = ({ children }: DefaultLayoutProps) => {
                 <Link to="/cartelera">Cartelera</Link>
               </li>
               <li>
-                <Link to="/reservas">Reservas</Link>
-              </li>
-              <li>
                 <Link to="/estrenos">Restrenos</Link>
               </li>
               <li>
                 {isAuthenticated ? (
-                  <span onClick={handleLogout}>Cerrar Sesión</span>
+                  <li onClick={handleLogout}>Cerrar Sesión</li>
                 ) : (
                   <Link to="/login">Iniciar Sesión</Link>
                 )}

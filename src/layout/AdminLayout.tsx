@@ -7,19 +7,21 @@ interface AdminLayoutProps {
   children: React.ReactNode;
 }
 
-export default function AdminLayout({ children }: AdminLayoutProps) {
+const AdminLayout = ({ children }: AdminLayoutProps) => {
   const [menuItemsVisible, setMenuItemsVisible] = useState(true);
-  const { logout } = useAuth();
+  const { isAuthenticated, logout } = useAuth();
   const navigate = useNavigate();
+  console.log("Estado de autenticación en AdminLayout:", isAuthenticated);
 
   const toggleMenuItems = () => {
     setMenuItemsVisible((prevVisibility) => !prevVisibility);
   };
 
-  const handleLogout = () => {
-    logout();
+  const handleLogout = async () => {
+    console.log("Antes de cerrar sesión");
+    await logout();
+    console.log("Después de cerrar sesión");
     navigate("/login");
-    // Puedes redirigir al usuario o realizar otras tareas después de cerrar sesión si es necesario
   };
 
   return (
@@ -62,4 +64,6 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
       <main>{children}</main>
     </>
   );
-}
+};
+
+export default AdminLayout;

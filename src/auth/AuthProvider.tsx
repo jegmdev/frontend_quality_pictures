@@ -1,18 +1,6 @@
-import { useContext, createContext, useState, useEffect } from "react";
-import type { AuthResponse, User } from "../types/types";
-import React from "react";
-
-interface AuthProviderProps {
-  children: React.ReactNode;
-}
-
-interface AuthContextType {
-  isAuthenticated: boolean;
-  getAccessToken: () => string;
-  saveUser: (userData: AuthResponse) => void;
-  logout: () => void;
-  user: User | null; // Asegúrate de importar la interfaz User de tus tipos
-}
+// auth/AuthProvider.tsx
+import React, { createContext, useContext, useState, useEffect } from "react";
+import type { AuthResponse, User, TokenPayload, AuthProviderProps, AuthContextType } from "../types/types";
 
 const AuthContext = createContext<AuthContextType>({
   isAuthenticated: false,
@@ -26,39 +14,79 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [accessToken, setAccessToken] = useState("");
   const [refreshToken, setRefreshToken] = useState("");
-  const [user, setUser] = useState<User | null>(null); // Inicializamos como null
+  const [user, setUser] = useState<User | null>(null);
+  const [tokenExpiration, setTokenExpiration] = useState<number | null>(null);
+  const [redirect, setRedirect] = useState<string | null>(null);
 
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
     if (storedToken) {
-      setIsAuthenticated(true);
+      const parsedToken: TokenPayload = JSON.parse(storedToken);
+      setAccessToken(parsedToken.accessToken);
+      setRefreshToken(parsedToken.refreshToken);
+      setTokenExpiration(parsedToken.tokenExpiration);
+
+      if (parsedToken.tokenExpiration && Date.now() < parsedToken.tokenExpiration * 1000) {
+        setIsAuthenticated(true);
+        const storedUser = localStorage.getItem("user");
+        if (storedUser) {
+          setUser(JSON.parse(storedUser));
+        }
+      } else {
+        logout();
+      }
     }
-  }, []); // Se ejecutará solo una vez al montarse el componente
+  }, []);
 
   function getAccessToken() {
-    console.log("getAccessToken called");
+    if (tokenExpiration && Date.now() >= tokenExpiration * 1000) {
+      setIsAuthenticated(false);
+      setAccessToken("");
+      setRefreshToken("");
+      setUser(null);
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      setRedirect("/login"); // Establecer la redirección a la página de inicio de sesión si el token ha expirado
+      return "";
+    }
     return accessToken;
   }
 
-  function saveTokenToLocalStorage(token: string) {
-    localStorage.setItem("token", JSON.stringify(token));
+  function saveTokenToLocalStorage(token: string, expiration: number) {
+    const tokenPayload: TokenPayload = {
+      accessToken: token,
+      refreshToken: refreshToken,
+      tokenExpiration: expiration,
+    };
+    localStorage.setItem("token", JSON.stringify(tokenPayload));
   }
 
   function saveUser(userData: AuthResponse) {
-    console.log("saveUser called with data:", userData);
     setAccessToken(userData.accessToken);
     setRefreshToken(userData.refreshToken);
-    saveTokenToLocalStorage(userData.refreshToken);
+    const tokenExpiration = Math.floor(Date.now() / 1000) + 3600; // 1 hora de expiración
+    saveTokenToLocalStorage(userData.accessToken, tokenExpiration);
     setIsAuthenticated(true);
-    setUser(userData.user); // Asignamos userData.user a user
+    setUser(userData.user);
+    localStorage.setItem("user", JSON.stringify(userData.user));
   }
 
   function logout() {
     localStorage.removeItem("token");
+    localStorage.removeItem("user");
     setIsAuthenticated(false);
-    setUser(null); // Limpiamos el usuario al cerrar sesión
-    // Otras tareas de limpieza si es necesario
+    setAccessToken("");
+    setRefreshToken("");
+    setUser(null);
+    setRedirect("/login");
   }
+
+  // Redireccionar manualmente si es necesario
+  useEffect(() => {
+    if (redirect) {
+      window.location.href = redirect;
+    }
+  }, [redirect]);
 
   return (
     <AuthContext.Provider

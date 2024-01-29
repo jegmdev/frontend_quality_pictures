@@ -207,7 +207,7 @@ const DetallesPelicula = () => {
           total,
         },
       ]);
-
+      alert(`Reserva exitosa. Película: ${pelicula}\nAsientos seleccionados: ${selectedSeats.map(seat => getSeatLabel(seat.row, seat.seat)).join(', ')}`);
       window.location.reload();
     } catch (error) {
       console.error("Error al realizar la reserva:", error);

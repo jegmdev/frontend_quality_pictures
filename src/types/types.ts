@@ -1,17 +1,16 @@
 export interface AuthResponse {
-  getAccessToken: string;
   accessToken: string;
   refreshToken: string;
   user: {
     email: string;
     nombre: string;
     apellidos: string;
-    tipo: string; // Asegúrate de que tipo esté incluido aquí
+    tipo: string;
     direccion: string;
   };
+  tokenExpiration: number; 
   message: string;
 }
-
 
 export interface AuthResponseError {
   body: {
@@ -33,4 +32,22 @@ export interface AccessTokenResponse {
     accessToken: string;
   };
   error?: string;
+}
+
+export interface TokenPayload {
+  accessToken: string;
+  refreshToken: string;
+  tokenExpiration: number;
+}
+
+export interface AuthProviderProps {
+  children: React.ReactNode;
+}
+
+export interface AuthContextType {
+  isAuthenticated: boolean;
+  getAccessToken: () => string;
+  saveUser: (userData: AuthResponse) => void;
+  logout: () => void;
+  user: User | null;
 }
