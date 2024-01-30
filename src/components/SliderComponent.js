@@ -7,7 +7,7 @@ import '../css/Slider.css';
 const sliderData = [  
   {
     background: 'https://i.postimg.cc/7PSwdvy5/1.png',
-    title: '¡Vive la magia en nuestras salas!',
+    title: '¡Vive la magia del cine en nuestras salas!',
   },
   {
     background: 'https://i.postimg.cc/rpdL93JF/2.png',

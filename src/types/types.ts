@@ -2,6 +2,7 @@ export interface AuthResponse {
   accessToken: string;
   refreshToken: string;
   user: {
+    id: number;
     email: string;
     nombre: string;
     apellidos: string;
@@ -19,6 +20,7 @@ export interface AuthResponseError {
 }
 
 export interface User {
+  id: number;
   email: string;
   nombre: string;
   apellidos: string;

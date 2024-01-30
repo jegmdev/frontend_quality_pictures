@@ -54,12 +54,13 @@ const DefaultLayout = ({ children }: DefaultLayoutProps) => {
                 <Link to="/estrenos">Restrenos</Link>
               </li>
               <li>
-                {isAuthenticated ? (
-                  <li onClick={handleLogout}>Cerrar Sesión</li>
-                ) : (
-                  <Link to="/login">Iniciar Sesión</Link>
-                )}
+                <Link to="/reservas">Reservas</Link>
               </li>
+              {isAuthenticated ? (
+                <li onClick={handleLogout}>Cerrar Sesión</li>
+              ) : (
+                <li><Link to="/login">Iniciar Sesión</Link></li>
+              )}
             </ul>
           </nav>
         </div>

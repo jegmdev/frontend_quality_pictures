@@ -5,6 +5,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import "../css/Reserva.css";
 import DefaultLayout from "../layout/DefaultLayout.tsx";
 import { useParams } from "react-router-dom";
+import { useAuth } from "../auth/AuthProvider.tsx";
 
 const DetallesPelicula = () => {
   const { id } = useParams();
@@ -17,6 +18,9 @@ const DetallesPelicula = () => {
   const [reservaMessage, setReservaMessage] = useState(null);
   const [reservas, setReservas] = useState([]);
   const [errorReserva, setErrorReserva] = useState(null);
+  const { isAuthenticated } = useAuth();
+  const { user } = useAuth();
+  const userId = user ? user.usuarioId : null;
 
   const salasAsientos = {
     Sala1: {
@@ -103,17 +107,14 @@ const DetallesPelicula = () => {
   useEffect(() => {
     const fetchReservasExistencias = async () => {
       try {
-        const response = await axios.get(
-          "http://localhost:3001/api/reservas",
-          {
-            params: {
-              idPelicula: id,
-              fecha: fecha.toISOString().slice(0, 10),
-              hora,
-              sala,
-            },
-          }
-        );
+        const response = await axios.get("http://localhost:3001/api/reservas", {
+          params: {
+            idPelicula: id,
+            fecha: fecha.toISOString().slice(0, 10),
+            hora,
+            sala,
+          },
+        });
 
         setReservas(response.data);
       } catch (error) {
@@ -128,17 +129,16 @@ const DetallesPelicula = () => {
 
   const selectSeat = (row, seat) => {
     const isReserved = reservas.some((reserva) =>
-      reserva.asientos.includes(getSeatLabel(row,seat))
-   );
+      reserva.asientos.includes(getSeatLabel(row, seat))
+    );
 
     setSelectedSeats((prevSeats) => {
-
       if (isReserved) {
         return prevSeats;
       }
 
-      if (prevSeats.some ((s) => s.row === row && s.seat === seat)) {
-        return prevSeats.filter((s) => !(s.row === row && s.seat === seat)) ;
+      if (prevSeats.some((s) => s.row === row && s.seat === seat)) {
+        return prevSeats.filter((s) => !(s.row === row && s.seat === seat));
       }
 
       if (prevSeats.length < 5) {
@@ -147,14 +147,14 @@ const DetallesPelicula = () => {
 
       return prevSeats;
     });
-  }; 
+  };
 
   const reservedSeatsLabel = (
     <p className="asientos-reservados-label">
-      Asientos Reservados: Estos asientos ya han sido seleccionados por otros usuarios.
+      Asientos Reservados: Estos asientos ya han sido seleccionados por otros
+      usuarios.
     </p>
   );
-
 
   const isSeatSelected = (row, seat) => {
     return selectedSeats.some((s) => s.row === row && s.seat === seat);
@@ -177,6 +177,14 @@ const DetallesPelicula = () => {
   };
 
   const handleReservarClick = async () => {
+    if (!isAuthenticated) {
+      // Redireccionar al usuario a la página de inicio de sesión si no está autenticado
+      window.location.href = "/login";
+      return;
+    }
+
+    console.log("ID user:", user.usuarioId);
+
     const formattedDate = fecha.toISOString().slice(0, 19).replace("T", " ");
 
     try {
@@ -190,6 +198,7 @@ const DetallesPelicula = () => {
           getSeatLabel(seat.row, seat.seat)
         ),
         total,
+        usuarioId: userId,
       });
 
       setReservaMessage(response.data.message);
@@ -207,7 +216,11 @@ const DetallesPelicula = () => {
           total,
         },
       ]);
-      alert(`Reserva exitosa. Película: ${pelicula}\nAsientos seleccionados: ${selectedSeats.map(seat => getSeatLabel(seat.row, seat.seat)).join(', ')}`);
+      alert(
+        `Reserva exitosa. Película: ${pelicula}\nAsientos seleccionados: ${selectedSeats
+          .map((seat) => getSeatLabel(seat.row, seat.seat))
+          .join(", ")}`
+      );
       window.location.reload();
     } catch (error) {
       console.error("Error al realizar la reserva:", error);
@@ -336,7 +349,8 @@ const DetallesPelicula = () => {
                     <div
                       key={j}
                       className={`silla ${
-                        isSeatSelected(i, j + 1) ? "seleccionada" : ""} ${
+                        isSeatSelected(i, j + 1) ? "seleccionada" : ""
+                      } ${
                         reservas.some((reserva) =>
                           reserva.asientos.includes(getSeatLabel(i, j + 1))
                         )

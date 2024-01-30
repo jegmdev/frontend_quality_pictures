@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
 import "../css/Reservas.css";
 import DefaultLayout from "../layout/DefaultLayout.tsx";
+import { useAuth } from "../auth/AuthProvider.tsx";
+import axios from "axios";
 
 const ListaReservas = () => {
+  const { user } = useAuth();
   const [reservas, setReservas] = useState([]);
 
   useEffect(() => {
@@ -10,14 +13,36 @@ const ListaReservas = () => {
       try {
         const response = await fetch("http://localhost:3001/api/listareservas");
         const data = await response.json();
-        setReservas(data);
+        
+        // Filtrar las reservas por usuario
+        const reservasUsuario = data.filter(reserva => reserva.usuarioId === user.usuarioId);
+
+        setReservas(reservasUsuario);
       } catch (error) {
         console.error("Error al obtener todas las reservas", error);
       }
     };
 
     obtenerTodasLasReservas();
-  }, []);
+  }, [user.usuarioId]); 
+
+  const eliminarReserva = async (reservaId) => {
+    try {
+      const response = await axios.delete(`http://localhost:3001/api/reservas/${reservaId}`);
+  
+      if (response.status === 200) {
+        alert('Reserva eliminada correctamente');
+        // Actualizar la lista de reservas después de eliminar
+        const nuevasReservas = reservas.filter((reserva) => reserva.id !== reservaId);
+        setReservas(nuevasReservas);
+      } else {
+        alert('Error al eliminar la reserva');
+      }
+    } catch (error) {
+      console.error('Error de red:', error);
+      alert('Error de red al intentar eliminar la reserva');
+    }
+  };
 
   const formatearFecha = (fecha) => {
     const fechaFormateada = new Date(fecha);
@@ -31,7 +56,7 @@ const ListaReservas = () => {
   return (
     <DefaultLayout>
       <div className="lista-reservas">
-        <h2>Lista de Reservas</h2>
+        <h2>Lista de Reservas de {user.nombre}</h2>
         <div className="table-container">
           <table className="reserva-table">
             <thead>
@@ -55,6 +80,11 @@ const ListaReservas = () => {
                   <td>{reserva.sala}</td>
                   <td>{reserva.asientos}</td>
                   <td>{reserva.total}.000</td>
+                  <td>
+                    <button onClick={() => eliminarReserva(reserva.id)}>
+                      Eliminar
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>

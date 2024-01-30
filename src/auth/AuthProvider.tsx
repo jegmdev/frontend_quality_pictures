@@ -67,9 +67,23 @@ export function AuthProvider({ children }: AuthProviderProps) {
     const tokenExpiration = Math.floor(Date.now() / 1000) + 3600; // 1 hora de expiración
     saveTokenToLocalStorage(userData.accessToken, tokenExpiration);
     setIsAuthenticated(true);
-    setUser(userData.user);
-    localStorage.setItem("user", JSON.stringify(userData.user));
-  }
+    setUser({
+      id: userData.user.id,
+      email: userData.user.email,
+      nombre: userData.user.nombre,
+      apellidos: userData.user.apellidos,
+      tipo: userData.user.tipo,
+      direccion: userData.user.direccion,
+    });
+    localStorage.setItem("user", JSON.stringify({
+      usuarioId: userData.user.id,
+      email: userData.user.email,
+      nombre: userData.user.nombre,
+      apellidos: userData.user.apellidos,
+      tipo: userData.user.tipo,
+      direccion: userData.user.direccion,
+    }));
+  }  
 
   function logout() {
     localStorage.removeItem("token");
