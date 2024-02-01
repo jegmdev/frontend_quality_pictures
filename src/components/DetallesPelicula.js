@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import "../css/Reserva.css";
+import "../css/Detalles.css";
 import DefaultLayout from "../layout/DefaultLayout.tsx";
 import { useParams } from "react-router-dom";
 import { useAuth } from "../auth/AuthProvider.tsx";

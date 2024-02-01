@@ -39,7 +39,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   }, []);
 
   function getAccessToken() {
-    if (tokenExpiration && Date.now() >= tokenExpiration * 1000) {
+    if (tokenExpiration && Date.now() >= tokenExpiration * 3600) {
       setIsAuthenticated(false);
       setAccessToken("");
       setRefreshToken("");

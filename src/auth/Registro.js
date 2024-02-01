@@ -12,7 +12,6 @@ const Registro = () => {
   const [contraseñaConfirmada, setContraseñaConfirmada] = useState("");
   const [nombre, setNombre] = useState("");
   const [apellidos, setApellidos] = useState("");
-  const [tipo, setTipo] = useState("");
   const [direccion, setDireccion] = useState("");
   const [celular, setCelular] = useState("");
   const [documento_identidad, setdocumento_identidad] = useState("");
@@ -32,7 +31,6 @@ const Registro = () => {
       !contraseña ||
       !nombre ||
       !apellidos ||
-      !tipo ||
       !direccion ||
       !celular ||
       !documento_identidad
@@ -83,7 +81,6 @@ const Registro = () => {
           contraseña,
           nombre,
           apellidos,
-          tipo,
           direccion,
           celular,
           documento_identidad,
@@ -152,11 +149,6 @@ const Registro = () => {
             value={apellidos}
             onChange={(e) => setApellidos(e.target.value)}
           />
-          <select value={tipo} onChange={(e) => setTipo(e.target.value)}>
-            <option value="">Seleccione un tipo</option>
-            <option value="1">Cliente</option>
-            <option value="2">Funcionario</option>
-          </select>
           <input
             type="text"
             placeholder="Dirección"

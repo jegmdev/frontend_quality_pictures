@@ -13,7 +13,7 @@ const PrivateRoute = ({ adminOnly }) => {
 
   // Verificar si se requiere un administrador y el usuario es un administrador
   if (adminOnly && (!user || user.tipo !== '2')) {
-    return <Navigate to='/'/>; // Redireccionar al inicio si el usuario no es un administrador
+    return <Navigate to='/'/>; 
   }
 
   // Si el usuario está autenticado y cumple con los requisitos, mostrar las rutas
