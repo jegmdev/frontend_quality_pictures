@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../css/Registro.css";
 import DefaultLayout from "../layout/DefaultLayout.tsx";
-import { useAuth } from './AuthProvider.tsx';
+import { useAuth } from "./AuthProvider.tsx";
 import { Navigate, useNavigate } from "react-router";
 
 const Registro = () => {
@@ -12,6 +12,7 @@ const Registro = () => {
   const [contraseñaConfirmada, setContraseñaConfirmada] = useState("");
   const [nombre, setNombre] = useState("");
   const [apellidos, setApellidos] = useState("");
+  const [tipo, setTipo] = useState("");
   const [direccion, setDireccion] = useState("");
   const [celular, setCelular] = useState("");
   const [documento_identidad, setdocumento_identidad] = useState("");
@@ -19,7 +20,7 @@ const Registro = () => {
   const goTo = useNavigate();
 
   if (auth.isAuthenticated) {
-    return <Navigate to='/admin' />
+    return <Navigate to="/admin" />;
   }
 
   const validarFormulario = async (e) => {
@@ -70,7 +71,7 @@ const Registro = () => {
     setError(""); // Limpiar mensajes de error previos
 
     try {
-      const response = await fetch('http://localhost:3001/api/registro', {
+      const response = await fetch("http://localhost:3001/api/registro", {
         method: "POST",
         credentials: "include",
         headers: {
@@ -84,13 +85,14 @@ const Registro = () => {
           direccion,
           celular,
           documento_identidad,
+          tipo: "1",
         }),
       });
 
       if (response.ok) {
-        setError("Registro exitoso")
+        setError("Registro exitoso");
         console.log("200");
-        goTo("/login")
+        goTo("/login");
       } else {
         const responseData = await response.json();
 
@@ -102,7 +104,7 @@ const Registro = () => {
         console.error("Error en el registro");
       }
     } catch (error) {
-      setError("Error en la solicitud")
+      setError("Error en la solicitud");
       console.error("Error en la solicitud:", error);
     }
   };
@@ -159,15 +161,22 @@ const Registro = () => {
             type="text"
             placeholder="Celular"
             value={celular}
-            onChange={(e) => setCelular(e.target.value)}
+            onChange={(e) => {
+              const input = e.target.value.replace(/\D/, "").slice(0, 10); // Eliminar caracteres no numéricos y limitar a 10 dígitos
+              setCelular(input);
+            }}
           />
           <input
             type="text"
             placeholder="Documento de identidad"
             value={documento_identidad}
-            onChange={(e) => setdocumento_identidad(e.target.value)}
+            onChange={(e) => {
+              const input = e.target.value.replace(/\D/, "").slice(0, 10); // Eliminar caracteres no numéricos y limitar a 10 dígitos
+              setdocumento_identidad(input);
+            }}
           />
-          <button type="submit">Registrarme</button>
+
+          <button type="submit">REGISTRARME</button>
         </form>
       </div>
     </DefaultLayout>

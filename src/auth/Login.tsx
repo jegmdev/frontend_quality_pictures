@@ -29,6 +29,7 @@ const Login = () => {
         const json = (await response.json()) as AuthResponse;
         console.log("Status 200");
         auth.saveUser(json);
+        window.location.reload();
 
         // Verificar el tipo de usuario y redirigir
         if (json.user.tipo === "1") {

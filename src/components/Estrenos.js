@@ -47,7 +47,7 @@ class Estrenos extends Component {
                   <b>Género:</b> {pelicula.genre}
                 </p>
                 <p>
-                  <b>Duración:</b> {pelicula.duration}
+                  <b>Duración: {pelicula.duration} minutos</b>
                 </p>
                 <Link className="button" to={`/pelicula/${pelicula.id}`}>
                   Reservar
