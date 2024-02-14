@@ -1,29 +1,28 @@
-.div-menu {
-  width: 100%;
-  height: auto;
-}
-
-.menu-items.hidden {
-  display: none;
-}
-
+/* Estilos para el menú */
 .menu {
   background-color: rgba(23, 39, 63, 1);
   color: white;
   display: flex;
   align-items: center;
-  position: static;
-  top: 0;
-  overflow: hidden;
+  justify-content: space-between; 
+  padding: 0 20px; 
   height: 150px;
-  transition: height 0.3s ease; /* Agregado para suavizar la transición de altura */
+  transition: height 0.3s ease; 
 }
 
+/* Estilos para el logo y el icono del menú */
 .logo-icon-container {
   display: flex;
   align-items: center;
+  justify-content: center; /* Centrar horizontalmente */
+  width: 45%; /* Ajustar el ancho del contenedor del logo y el icono */
 }
 
+.menu-icon {
+  display: none;
+}
+
+/* Estilos para el logo */
 .menu-logo {
   display: flex;
   width: 45%;
@@ -33,30 +32,26 @@
 }
 
 .menu-logo img {
-  width: 100%;
-  height: auto;
-  object-fit: contain;
-  padding-left: 160px;
-}
-
-.menu-icon {
-  display: none;
+  width: 100%; 
+  height: auto; 
+  max-height: 100px; 
+  padding: 35px; 
+  object-fit: contain; 
 }
 
 .menu-icon img {
-  max-width: 10%;
+  max-width: 100%;
   height: auto;
   cursor: pointer;
-  margin-right: 20px;
 }
 
+/* Estilos para los elementos del menú */
 .menu-items {
   list-style: none;
-  width: 100%;
   display: flex;
-  overflow: hidden;
-  justify-content: center;
-  transition: width 0.3s ease; /* Agregado para suavizar la transición de ancho */
+  align-items: center; 
+  justify-content: center; 
+  flex-grow: 1; 
 }
 
 .menu-items li {
@@ -75,52 +70,44 @@
 @media (max-width: 768px) {
   .menu {
     flex-direction: column;
-    text-align: center;
     height: auto;
   }
 
-  .menu-logo {
+  .logo-icon-container {
     width: 70%;
-    justify-content: start;
+    justify-content: center; /* Centrar horizontalmente */
   }
 
   .menu-logo img {
     width: 100%;
     padding: 20px;
-    justify-content: start;
+    justify-content: center; /* Centrar horizontalmente */
   }
 
   .menu-icon {
-    max-width: 30%;
+    display: block;
+    width: 30%;
     padding: 20px;
-    display: block;
-  }
-
-  .menu-icon img {
-    max-width: 20%;
-    padding-left: 70px;
-    display: block;
   }
 
   .menu-items {
-    justify-content: center;
-    padding: 0;
-    display: block;
+    display: none;
     width: 100%;
     overflow: hidden;
+    text-align: center; /* Centrar horizontalmente en dispositivos pequeños */
+  }
+
+  .menu-items.active {
+    display: flex;
+    flex-direction: column;
   }
 
   .menu-items li {
-    width: 100%;
-    align-items: center;
-    padding: 8px;
+    margin: 10px 0; /* Ajustar el espacio entre los elementos del menú */
   }
 
-  .menu-btn.active + .menu-items {
-    display: flex;
-  }
-
-  .menu-btn {
-    display: inline-block;
+  .menu-items a {
+    color: white;
+    font-weight: bold;
   }
 }

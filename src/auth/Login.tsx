@@ -28,18 +28,9 @@ const Login = () => {
       if (response.status === 200) {
         const json = (await response.json()) as AuthResponse;
         console.log("Status 200");
+        console.log("Response JSON:", json);
         auth.saveUser(json);
         window.location.reload();
-
-        // Verificar el tipo de usuario y redirigir
-        if (json.user.tipo === "1") {
-          navigate("/"); // Ruta para usuarios tipo cliente
-        } else if (json.user.tipo === "2") {
-          navigate("/admin"); // Ruta para usuarios tipo admin
-        } else {
-          // Tipo de usuario desconocido, manejar según tus necesidades
-          console.error("Tipo de usuario desconocido");
-        }
       } else {
         if (response.status === 400) {
           setMessage("Correo electrónico o contraseña inválidos");
