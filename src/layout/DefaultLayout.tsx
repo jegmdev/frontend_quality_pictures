@@ -11,7 +11,6 @@ const DefaultLayout = ({ children }: DefaultLayoutProps) => {
   const [menuItemsVisible, setMenuItemsVisible] = useState(true);
   const { isAuthenticated, logout } = useAuth();
   const navigate = useNavigate();
-  console.log("Estado de autenticación en DefaultLayout:", isAuthenticated);
 
   const toggleMenuItems = () => {
     setMenuItemsVisible((prevVisibility) => !prevVisibility);

@@ -11,7 +11,6 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
   const [menuItemsVisible, setMenuItemsVisible] = useState(true);
   const { isAuthenticated, logout } = useAuth();
   const navigate = useNavigate();
-  console.log("Estado de autenticación en AdminLayout:", isAuthenticated);
 
   const toggleMenuItems = () => {
     setMenuItemsVisible((prevVisibility) => !prevVisibility);

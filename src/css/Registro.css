@@ -1,45 +1,61 @@
-.Registro {
-    width: 100%;
-    max-width: 600px;
-    margin: 0 auto;
-    margin-top: 40px;
-    padding: 20px;
-    box-sizing: border-box;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    background-color: #ffffff;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-}
+    .Link {
+        font-weight: bold;
+        color: black;
+    }
 
-.Registro h1 {
-    text-align: center;
-    margin-bottom: 20px;
-}
+    p {
+        text-align: center;
+    }
 
-.Registro form {
-    display: flex;
-    flex-direction: column;
-}
+    .Registro {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        max-width: 450px;
+        margin: 0 auto;
+        margin-top: 70px;
+        margin-bottom: 70px;
+        padding: 20px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    }
 
-.Registro input,
-.Registro select {
-    margin-bottom: 10px;
-    padding: 8px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-}
+    .Registro h1 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
 
-.Registro button {
-    cursor: pointer;
-    padding: 10px;
-    font-size: 18px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-}
+    .Registro form {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
 
-.Registro button:hover {
-    background-color: #0056b3;
-}
+    .Registro label {
+        margin-bottom: 5px;
+        text-align: start;
+        font-weight: bold;
+    }
+
+    .Registro input,
+    .Registro select {
+        margin-bottom: 20px;
+        padding: 10px;
+        font-size: 16px;
+    }
+
+    .Registro button {
+        cursor: pointer;
+        padding: 10px 15px;
+        font-size: 18px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+    }
+
+    .Registro button:hover {
+        background-color: #0056b3;
+    }

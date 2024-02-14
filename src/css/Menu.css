@@ -14,7 +14,6 @@
   align-items: center;
   position: static;
   top: 0;
-  z-index: 1;
   overflow: hidden;
   height: 150px;
   transition: height 0.3s ease; /* Agregado para suavizar la transición de altura */
@@ -27,17 +26,17 @@
 
 .menu-logo {
   display: flex;
-  width: 70%;
+  width: 45%;
   height: auto;
   margin: 0;
   padding: 0;
 }
 
 .menu-logo img {
-  width: 50%;
+  width: 100%;
   height: auto;
   object-fit: contain;
-  padding-left: 300px;
+  padding-left: 160px;
 }
 
 .menu-icon {
@@ -53,11 +52,10 @@
 
 .menu-items {
   list-style: none;
-  justify-content: flex-end;
-  padding-right: 200px;
-  width: 50%;
+  width: 100%;
   display: flex;
   overflow: hidden;
+  justify-content: center;
   transition: width 0.3s ease; /* Agregado para suavizar la transición de ancho */
 }
 

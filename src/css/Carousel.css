@@ -85,3 +85,25 @@
 .button:hover {
   background: #1b7de6;
 }
+
+@media (min-width: 769px) and (max-width: 1200px) {
+  .movie-card img {
+    max-width: 100%;
+    width: 100%;
+    object-fit: cover; /* Cambiado de "contain" a "cover" para cubrir completamente el contenedor */
+    margin: 0 auto;
+    height: auto;
+    max-height: 420px; /* Establecer una altura máxima deseada */
+  }
+}
+
+@media (min-width: 1201px) {
+  .movie-card img {
+    max-width: 100%;
+    width: 100%;
+    object-fit: cover; /* Cambiado de "contain" a "cover" para cubrir completamente el contenedor */
+    margin: 0 auto;
+    height: auto;
+    max-height: 600px; /* Establecer una altura máxima deseada */
+  }
+}

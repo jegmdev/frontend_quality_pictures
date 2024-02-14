@@ -40,8 +40,10 @@ h1 {
 }
 
 .pelicula img {
+  object-fit: contain;
   max-width: 100%;
   height: auto;
+  max-height: 610px;
   display: block;
   margin: 0 auto 20px;
 }
@@ -60,15 +62,63 @@ h1 {
   background-color: #d1d1d1;
 }
 
-@media (min-width: 769px) and (max-width: 1200px) {
+@media (min-width: 300px) and (max-width: 800px) {
   .pelicula-container {
-    grid-template-columns: repeat(3, minmax(200px, 1fr));
+    grid-template-columns: repeat(1, minmax(200px, 1fr));
+  }
+
+  .pelicula img {
+    object-fit: contain;
+    max-width: 100%;
+    height: auto;
+    max-height: 510px;
+    display: block;
+    margin: 0 auto 20px;
   }
 }
 
-@media (min-width: 1201px) {
+@media (min-width: 800px) and (max-width: 1200px) {
+  .pelicula-container {
+    grid-template-columns: repeat(2, minmax(200px, 1fr));
+  }
+
+  .pelicula img {
+    object-fit: contain;
+    max-width: 100%;
+    height: auto;
+    max-height: 510px;
+    display: block;
+    margin: 0 auto 20px;
+  }
+}
+
+@media (min-width: 1200px) and (max-width: 1600px) {
   .pelicula-container {
     grid-template-columns: repeat(3, minmax(200px, 1fr));
+  }
+
+  .pelicula img {
+    object-fit: contain;
+    max-width: 100%;
+    height: auto;
+    max-height: 360px;
+    display: block;
+    margin: 0 auto 20px;
+  }
+}
+
+@media (min-width: 1600px) {
+  .pelicula-container {
+    grid-template-columns: repeat(3, minmax(200px, 1fr));
+  }
+
+  .pelicula img {
+    object-fit: contain;
+    max-width: 100%;
+    height: auto;
+    max-height: 550px;
+    display: block;
+    margin: 0 auto 20px;
   }
 }
 

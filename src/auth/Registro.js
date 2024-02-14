@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "../css/Registro.css";
 import DefaultLayout from "../layout/DefaultLayout.tsx";
 import { useAuth } from "./AuthProvider.tsx";
-import { Navigate, useNavigate } from "react-router";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 
 const Registro = () => {
   const [correo, setCorreo] = useState("");
@@ -12,7 +12,6 @@ const Registro = () => {
   const [contraseñaConfirmada, setContraseñaConfirmada] = useState("");
   const [nombre, setNombre] = useState("");
   const [apellidos, setApellidos] = useState("");
-  const [tipo, setTipo] = useState("");
   const [direccion, setDireccion] = useState("");
   const [celular, setCelular] = useState("");
   const [documento_identidad, setdocumento_identidad] = useState("");
@@ -115,67 +114,72 @@ const Registro = () => {
         <h1>Registro</h1>
         {error && <p className="error">{error}</p>}
         <form onSubmit={validarFormulario}>
+          <label>Correo electrónico:</label>
           <input
             type="email"
-            placeholder="Correo electrónico"
             value={correo}
             onChange={(e) => setCorreo(e.target.value)}
           />
+          <label>Confirmar correo electrónico:</label>
           <input
             type="email"
-            placeholder="Confirmar correo electrónico"
             value={correoConfirmado}
             onChange={(e) => setCorreoConfirmado(e.target.value)}
           />
+          <label>Contraseña:</label>
           <input
             type="password"
-            placeholder="Contraseña"
             value={contraseña}
             onChange={(e) => setContraseña(e.target.value)}
           />
+          <label>Confirmar contraseña:</label>
           <input
             type="password"
-            placeholder="Confirmar contraseña"
             value={contraseñaConfirmada}
             onChange={(e) => setContraseñaConfirmada(e.target.value)}
           />
+          <label>Nombre:</label>
           <input
             type="text"
-            placeholder="Nombre"
             value={nombre}
             onChange={(e) => setNombre(e.target.value)}
           />
+          <label>Apellidos:</label>
           <input
             type="text"
-            placeholder="Apellidos"
             value={apellidos}
             onChange={(e) => setApellidos(e.target.value)}
           />
+          <label>Dirección:</label>
           <input
             type="text"
-            placeholder="Dirección"
             value={direccion}
             onChange={(e) => setDireccion(e.target.value)}
           />
+          <label>Celular:</label>
           <input
             type="text"
-            placeholder="Celular"
             value={celular}
             onChange={(e) => {
               const input = e.target.value.replace(/\D/, "").slice(0, 10); // Eliminar caracteres no numéricos y limitar a 10 dígitos
               setCelular(input);
             }}
           />
+          <label>Documento de identidad:</label>
           <input
             type="text"
-            placeholder="Documento de identidad"
             value={documento_identidad}
             onChange={(e) => {
               const input = e.target.value.replace(/\D/, "").slice(0, 10); // Eliminar caracteres no numéricos y limitar a 10 dígitos
               setdocumento_identidad(input);
             }}
           />
-
+          <p>
+            ¿Ya tienes cuenta?{" "}
+            <Link className="Link" to="/login">
+              Inicia sesión aquí
+            </Link>
+          </p>
           <button type="submit">REGISTRARME</button>
         </form>
       </div>
