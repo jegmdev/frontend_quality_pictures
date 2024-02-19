@@ -5,9 +5,9 @@
   display: flex;
   align-items: center;
   justify-content: space-between; 
-  padding: 0 20px; 
   height: 150px;
   transition: height 0.3s ease; 
+  margin: 0 auto;
 }
 
 /* Estilos para el logo y el icono del menú */
@@ -15,7 +15,7 @@
   display: flex;
   align-items: center;
   justify-content: center; /* Centrar horizontalmente */
-  width: 45%; /* Ajustar el ancho del contenedor del logo y el icono */
+  width: 50%; /* Ajustar el ancho del contenedor del logo y el icono */
 }
 
 .menu-icon {
@@ -25,17 +25,16 @@
 /* Estilos para el logo */
 .menu-logo {
   display: flex;
-  width: 45%;
+  width: 50%;
   height: auto;
   margin: 0;
   padding: 0;
 }
 
 .menu-logo img {
-  width: 100%; 
+  width: 70%; 
   height: auto; 
   max-height: 100px; 
-  padding: 35px; 
   object-fit: contain; 
 }
 
@@ -43,6 +42,7 @@
   max-width: 100%;
   height: auto;
   cursor: pointer;
+  justify-content: left;
 }
 
 /* Estilos para los elementos del menú */
@@ -52,6 +52,7 @@
   align-items: center; 
   justify-content: center; 
   flex-grow: 1; 
+  padding: 0;
 }
 
 .menu-items li {
@@ -67,34 +68,40 @@
 }
 
 /* Estilos responsivos */
-@media (max-width: 768px) {
+@media (max-width: 1080px) {
   .menu {
+    width: 100%;
     flex-direction: column;
     height: auto;
   }
 
   .logo-icon-container {
-    width: 70%;
-    justify-content: center; /* Centrar horizontalmente */
+    width: 100%;
+    height: 150px;
+  }
+
+  .menu-logo {
+    width: 50%;
   }
 
   .menu-logo img {
     width: 100%;
-    padding: 20px;
-    justify-content: center; /* Centrar horizontalmente */
+    padding: 0;
+    margin: 0;
   }
 
   .menu-icon {
-    display: block;
-    width: 30%;
-    padding: 20px;
+    width: 50%;
+    display: flex;
+    width: 8%;
+    padding: 40px;
   }
 
   .menu-items {
     display: none;
     width: 100%;
     overflow: hidden;
-    text-align: center; /* Centrar horizontalmente en dispositivos pequeños */
+    text-align: center; 
   }
 
   .menu-items.active {

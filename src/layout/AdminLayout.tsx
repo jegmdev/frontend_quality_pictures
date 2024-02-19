@@ -1,25 +1,19 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../css/Menu.css";
-import { useAuth } from "../auth/AuthProvider.tsx"; // Ajusta la ruta según la ubicación real
+import { useAuth } from "../auth/AuthProvider.tsx";
 
-interface AdminLayoutProps {
-  children: React.ReactNode;
-}
-
-const AdminLayout = ({ children }: AdminLayoutProps) => {
-  const [menuItemsVisible, setMenuItemsVisible] = useState(true);
+const AdminLayout = ({ children }) => {
+  const [menuItemsVisible, setMenuItemsVisible] = useState(false);
   const { isAuthenticated, logout } = useAuth();
-  const navigate = useNavigate();
+  const navigate = useNavigate(); 
 
   const toggleMenuItems = () => {
-    setMenuItemsVisible((prevVisibility) => !prevVisibility);
+    setMenuItemsVisible(!menuItemsVisible);
   };
 
   const handleLogout = async () => {
-    console.log("Antes de cerrar sesión");
     await logout();
-    console.log("Después de cerrar sesión");
     navigate("/login");
   };
 
@@ -42,7 +36,7 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
                 />
               </div>
             </div>
-            <ul className={`menu-items ${menuItemsVisible ? "" : "hidden"}`}>
+            <ul className={`menu-items ${menuItemsVisible ? "active" : ""}`}>
               <li>
                 <Link to="/admin">Home</Link>
               </li>

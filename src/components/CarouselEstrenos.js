@@ -66,6 +66,7 @@ const Carousel = () => {
   };
 
   const settings = {
+    dots: true,
     arrows: true,
     infinite: true,
     speed: 500,
@@ -93,7 +94,7 @@ const Carousel = () => {
   return (
     <div className="carousel-container">
       <Slider className="carousel" {...settings}>
-        {movieData.map((movie, index) => (
+        {movieData.slice(0, 6).map((movie, index) => (
           <div key={index} className="movie-card">
             <img src={movie.image} alt={movie.title} />
             <h3>{movie.title}</h3>

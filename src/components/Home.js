@@ -1,5 +1,4 @@
 import React from "react";
-import "../css/App.css";
 import SliderComponent from "./SliderComponent";
 import Carousel from "./Carousel";
 import DefaultLayout from "../layout/DefaultLayout.tsx";
@@ -23,15 +22,15 @@ function Home() {
 
         <div className="banner">
           <ImageBanner />
+          <br></br>
         </div>
 
         <div className="Carousel-Estrenos">
           <h1>Restrenos</h1>
           <CarouselEstrenos/>
-          <br>
-          </br>
+          <br></br>
         </div>
-
+        <br></br>
         <Footer/>
       </div>
     </DefaultLayout>

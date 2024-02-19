@@ -172,7 +172,7 @@ const ListaReservas = () => {
                 <th>Sala</th>
                 <th>Cantidad de Sillas</th>
                 <th>Total compra</th>
-                <th>Acciones</th> {/* Nueva columna para los botones de eliminación */}
+                <th>Acciones</th> 
               </tr>
             </thead>
             <tbody>
@@ -185,7 +185,7 @@ const ListaReservas = () => {
                   <td>{`${reserva.hora}`}</td>
                   <td>{reserva.sala}</td>
                   <td>{reserva.asientos}</td>
-                  <td>{reserva.total}.000</td>
+                  <td>{`${reserva.total}.000`}</td>
                   <td>
                   <button
                       className="btn-cancelar"

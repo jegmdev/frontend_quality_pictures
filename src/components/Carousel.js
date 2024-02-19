@@ -96,7 +96,7 @@ const Carousel = () => {
 
   useEffect(() => {
     fetchMovieData();
-  }, []);
+  }, []); 
 
   const settings = {
     dots: true,
@@ -118,7 +118,7 @@ const Carousel = () => {
       {
         breakpoint: 992,
         settings: {
-          slidesToShow: 2,
+          slidesToShow: 1,
         },
       },
     ],

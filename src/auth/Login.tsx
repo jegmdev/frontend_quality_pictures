@@ -28,7 +28,6 @@ const Login = () => {
       if (response.status === 200) {
         const json = (await response.json()) as AuthResponse;
         console.log("Status 200");
-        console.log("Response JSON:", json);
         auth.saveUser(json);
         window.location.reload();
       } else {

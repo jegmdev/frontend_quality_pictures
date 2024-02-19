@@ -25,15 +25,15 @@ const DetallesPelicula = () => {
   const salasAsientos = {
     Sala1: {
       filas: 5,
-      asientosPorFila: 10,
+      asientosPorFila: 8,
     },
     Sala2: {
       filas: 6,
-      asientosPorFila: 10,
+      asientosPorFila: 8,
     },
     Sala3: {
       filas: 7,
-      asientosPorFila: 10,
+      asientosPorFila: 8,
     },
   };
 

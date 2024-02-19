@@ -28,9 +28,9 @@ function Home() {
         <div className="Carousel-Estrenos">
           <h1>Restrenos</h1>
           <CarouselEstrenos/>
-          <br>
-          </br>
+          <br></br>
         </div>
+        <br></br>
 
         <Footer/>
       </div>

@@ -3,23 +3,17 @@ import { Link, useNavigate } from "react-router-dom";
 import "../css/Menu.css";
 import { useAuth } from "../auth/AuthProvider.tsx";
 
-interface DefaultLayoutProps {
-  children: React.ReactNode;
-}
-
-const DefaultLayout = ({ children }: DefaultLayoutProps) => {
-  const [menuItemsVisible, setMenuItemsVisible] = useState(true);
+const DefaultLayout = ({ children }) => {
+  const [menuItemsVisible, setMenuItemsVisible] = useState(false); // Inicialmente oculto
   const { isAuthenticated, logout } = useAuth();
   const navigate = useNavigate();
 
   const toggleMenuItems = () => {
-    setMenuItemsVisible((prevVisibility) => !prevVisibility);
+    setMenuItemsVisible(!menuItemsVisible); // Cambiar el estado de visibilidad
   };
 
   const handleLogout = async () => {
-    console.log("Antes de cerrar sesión");
     await logout();
-    console.log("Después de cerrar sesión");
     navigate("/login");
   };
 
@@ -42,7 +36,7 @@ const DefaultLayout = ({ children }: DefaultLayoutProps) => {
                 />
               </div>
             </div>
-            <ul className={`menu-items ${menuItemsVisible ? "" : "hidden"}`}>
+            <ul className={`menu-items ${menuItemsVisible ? "active" : ""}`}>
               <li>
                 <Link to="/">Home</Link>
               </li>

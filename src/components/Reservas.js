@@ -9,28 +9,28 @@ const ListaReservas = () => {
   const { user } = useAuth();
   const [reservas, setReservas] = useState([]);
 
-useEffect(() => {
-  const obtenerTodasLasReservas = async () => {
-    try {
-      const response = await fetch("http://localhost:3001/api/listareservas");
-      const data = await response.json();
+  useEffect(() => {
+    const obtenerTodasLasReservas = async () => {
+      try {
+        const response = await fetch("http://localhost:3001/api/listareservas");
+        const data = await response.json();
 
-      // Filtrar las reservas por usuario
-      const reservasUsuario = data.filter(
-        (reserva) => reserva.usuarioId === user.usuarioId
-      );
+        // Filtrar las reservas por usuario
+        const reservasUsuario = data.filter(
+          (reserva) => reserva.usuarioId === user.usuarioId
+        );
 
-      // Ordenar las reservas por fecha de manera descendente (las más recientes primero)
-      reservasUsuario.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
+        // Ordenar las reservas por fecha de manera descendente (las más recientes primero)
+        reservasUsuario.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
 
-      setReservas(reservasUsuario);
-    } catch (error) {
-      console.error("Error al obtener todas las reservas", error);
-    }
-  };
+        setReservas(reservasUsuario);
+      } catch (error) {
+        console.error("Error al obtener todas las reservas", error);
+      }
+    };
 
-  obtenerTodasLasReservas();
-}, [user.usuarioId]);
+    obtenerTodasLasReservas();
+  }, [user.usuarioId]);
 
   const eliminarReserva = async (reservaId) => {
     // Mostrar un mensaje de confirmación
@@ -132,12 +132,12 @@ useEffect(() => {
     const sillasAEliminarInput = prompt(
       "Ingrese las sillas a eliminar, separadas por coma"
     );
-  
+
     if (sillasAEliminarInput !== null) {
       const sillasAEliminar = sillasAEliminarInput
         .split(",")
         .map((silla) => silla.trim().toUpperCase());
-  
+
       if (sillasAEliminar.length > 0) {
         eliminarSillasDeReserva(reservaId, sillasAEliminar);
       } else {
@@ -146,7 +146,7 @@ useEffect(() => {
     } else {
       alert("Operación cancelada. No se eliminaron sillas.");
     }
-  };  
+  };
 
   const formatearFecha = (fecha) => {
     const fechaFormateada = new Date(fecha);
@@ -183,7 +183,7 @@ useEffect(() => {
                   <td>{`${reserva.hora}`}</td>
                   <td>{reserva.sala}</td>
                   <td>{reserva.asientos}</td>
-                  <td>{reserva.total}.000</td>
+                  <td>{`${reserva.total}.000`}</td>
                   <td>
                     <button
                       className="btn-cancelar"
