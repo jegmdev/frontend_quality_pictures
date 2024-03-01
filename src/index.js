@@ -17,7 +17,6 @@ import Home from "./components/Home";
 import HomeAdmin from "./components/HomeAdmin.js";
 import Registro from "./auth/Registro";
 import PrivateRoute from "./routes/PrivateRoute";
-import DashboardAdmin from "./components/DashboardAdmin";
 import MovieForm from "./components/MovieForm.js";
 import DetallesPelicula from "./components/DetallesPelicula.js";
 import ListaReservas from "./components/ListaReservas.js";
@@ -66,10 +65,6 @@ const router = createBrowserRouter([
       {
         path: "/admin",
         element: <HomeAdmin />,
-      },
-      {
-        path: "/admin/dashboard",
-        element: <DashboardAdmin />,
       },
       {
         path: "/admin/peliculas",

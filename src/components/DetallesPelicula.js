@@ -6,6 +6,7 @@ import "../css/Detalles.css";
 import DefaultLayout from "../layout/DefaultLayout.tsx";
 import { useParams } from "react-router-dom";
 import { useAuth } from "../auth/AuthProvider.tsx";
+import { API_URL } from "../constants.ts";
 
 const DetallesPelicula = () => {
   const { id } = useParams();
@@ -79,7 +80,7 @@ const DetallesPelicula = () => {
         // Si el id tiene 4 dígitos o menos, busca solo en la segunda API
         try {
           const response = await axios.get(
-            `http://localhost:3001/api/estrenos/${id}`
+            `${API_URL}/api/estrenos/${id}`
           );
 
           setDetallesPelicula({
@@ -107,7 +108,7 @@ const DetallesPelicula = () => {
   useEffect(() => {
     const fetchReservasExistencias = async () => {
       try {
-        const response = await axios.get("http://localhost:3001/api/reservas", {
+        const response = await axios.get(`${API_URL}/api/reservas`, {
           params: {
             idPelicula: id,
             fecha: fecha.toISOString().slice(0, 10),
@@ -188,7 +189,7 @@ const DetallesPelicula = () => {
     const formattedDate = fecha.toISOString().slice(0, 19).replace("T", " ");
 
     try {
-      const response = await axios.post("http://localhost:3001/api/reservar", {
+      const response = await axios.post(`${API_URL}/api/reservar`, {
         idPelicula: id,
         pelicula,
         fecha: formattedDate,

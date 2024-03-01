@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import axios from "axios";
 import "../css/Cartelera.css";
 import AdminLayout from "../layout/AdminLayout.tsx";
+import { API_URL } from "../constants.ts";
+import MovieForm from "./MovieForm"; // Importa el componente MovieForm
 
 class Cartelera extends Component {
   constructor() {
@@ -18,6 +20,7 @@ class Cartelera extends Component {
         duracion: "",
         valor_boleta: "",
       },
+      mostrarMovieForm: false, // Nuevo estado para controlar la visibilidad de MovieForm
     };
   }
 
@@ -26,7 +29,7 @@ class Cartelera extends Component {
   }
 
   fetchMovies() {
-    const apiUrl = "http://localhost:3001/api/estrenos";
+    const apiUrl = `${API_URL}/api/estrenos`;
 
     axios
       .get(apiUrl)
@@ -47,25 +50,33 @@ class Cartelera extends Component {
       });
   }
 
+  toggleMovieForm = () => {
+    this.setState((prevState) => ({
+      mostrarMovieForm: !prevState.mostrarMovieForm,
+    }));
+  };
+
   eliminarPelicula = async (peliculaId) => {
     try {
-      const response = await axios.delete(`http://localhost:3001/api/estrenos/${peliculaId}`);
-      
+      const response = await axios.delete(
+        `${API_URL}/api/estrenos/${peliculaId}`
+      );
+
       if (response.status === 200) {
-        alert('Película eliminada correctamente');
+        alert("Película eliminada correctamente");
         this.fetchMovies(); // Recargar la lista después de eliminar
       } else {
-        alert('Error al eliminar la película');
+        alert("Error al eliminar la película");
       }
     } catch (error) {
-      console.error('Error de red:', error);
-      alert('Error de red al intentar eliminar la película');
+      console.error("Error de red:", error);
+      alert("Error de red al intentar eliminar la película");
     }
   };
 
   editarPelicula = async (peliculaId) => {
     // Obtener detalles de la película para editar
-    const apiUrl = `http://localhost:3001/api/estrenos/${peliculaId}`;
+    const apiUrl = `${API_URL}/api/estrenos/${peliculaId}`;
 
     try {
       const response = await axios.get(apiUrl);
@@ -85,10 +96,10 @@ class Cartelera extends Component {
           },
         });
       } else {
-        console.error('Error al obtener detalles de la película para editar');
+        console.error("Error al obtener detalles de la película para editar");
       }
     } catch (error) {
-      console.error('Error de red:', error);
+      console.error("Error de red:", error);
     }
   };
 
@@ -121,10 +132,11 @@ class Cartelera extends Component {
     const { editingMovieId, editedMovie } = this.state;
 
     try {
-      const response = await axios.put(`http://localhost:3001/api/estrenos/${editingMovieId}`, editedMovie);
+      const response = await axios.put(
+        `${API_URL}/api/estrenos/${editingMovieId}`, editedMovie);
 
       if (response.status === 200) {
-        alert('Película editada correctamente');
+        alert("Película editada correctamente");
         this.setState({
           editingMovieId: null,
           editedMovie: {
@@ -139,11 +151,11 @@ class Cartelera extends Component {
         });
         this.fetchMovies(); // Recargar la lista después de editar
       } else {
-        alert('Error al editar la película');
+        alert("Error al editar la película");
       }
     } catch (error) {
-      console.error('Error de red:', error);
-      alert('Error de red al intentar editar la película');
+      console.error("Error de red:", error);
+      alert("Error de red al intentar editar la película");
     }
   };
 
@@ -152,6 +164,14 @@ class Cartelera extends Component {
       <AdminLayout>
         <div>
           <h1>Cartelera</h1>
+          <div className="btn-container">
+            <button className="button" onClick={this.toggleMovieForm}>
+              {this.state.mostrarMovieForm
+                ? "Cerrar Formulario"
+                : "Crear nueva película"}
+            </button>
+          </div>
+          {this.state.mostrarMovieForm && <MovieForm />}
           <div className="pelicula-container">
             {this.state.peliculas.map((pelicula) => (
               <div key={pelicula.id} className="pelicula">
@@ -164,10 +184,20 @@ class Cartelera extends Component {
                   <b>Género:</b> {pelicula.genre}
                 </p>
                 <p>
-                  <b>Duración:</b> {pelicula.duration}
+                  <b>Duración:</b> {pelicula.duration} min
                 </p>
-                <button className="button" onClick={() => this.eliminarPelicula(pelicula.id)}>Eliminar</button>
-                <button className="button" onClick={() => this.editarPelicula(pelicula.id)}>Editar</button>
+                <button
+                  className="button"
+                  onClick={() => this.eliminarPelicula(pelicula.id)}
+                >
+                  Eliminar
+                </button>
+                <button
+                  className="button"
+                  onClick={() => this.editarPelicula(pelicula.id)}
+                >
+                  Editar
+                </button>
                 {this.state.editingMovieId === pelicula.id && (
                   <div className="edit-form">
                     <label>Título:</label>
@@ -220,8 +250,12 @@ class Cartelera extends Component {
                       value={this.state.editedMovie.valor_boleta}
                       onChange={this.handleEditChange}
                     />
-                    <button className="button" onClick={this.handleSaveEdit}>Guardar</button>
-                    <button className="button" onClick={this.handleCancelEdit}>Cancelar</button>
+                    <button className="button" onClick={this.handleSaveEdit}>
+                      Guardar
+                    </button>
+                    <button className="button" onClick={this.handleCancelEdit}>
+                      Cancelar
+                    </button>
                   </div>
                 )}
               </div>

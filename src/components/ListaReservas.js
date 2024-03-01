@@ -4,6 +4,7 @@ import AdminLayout from "../layout/AdminLayout.tsx";
 import { useAuth } from "../auth/AuthProvider.tsx";
 import axios from "axios";
 import jsPDF from "jspdf";
+import { API_URL } from "../constants.ts";
 
 const ListaReservas = () => {
   const [reservas, setReservas] = useState([]);
@@ -12,7 +13,7 @@ const ListaReservas = () => {
   useEffect(() => {
     const obtenerTodasLasReservas = async () => {
       try {
-        const response = await fetch("http://localhost:3001/api/listareservas");
+        const response = await fetch(`${API_URL}/api/listareservas`);
         const data = await response.json();
   
         // Ordenar las reservas por fecha de manera descendente (las más recientes primero)
@@ -50,7 +51,7 @@ const ListaReservas = () => {
     if (confirmacion) {
       try {
         const response = await axios.delete(
-          `http://localhost:3001/api/reservas/${reservaId}`
+          `${API_URL}/api/reservas/${reservaId}`
         );
 
         if (response.status === 200) {
@@ -120,7 +121,7 @@ const ListaReservas = () => {
   const eliminarSillasDeReserva = async (reservaId, sillasAEliminar) => {
     try {
       const response = await axios.put(
-        `http://localhost:3001/api/reservas/${reservaId}/eliminar-sillas`,
+        `${API_URL}/api/reservas/${reservaId}/eliminar-sillas`,
         { sillasAEliminar }
       );
 

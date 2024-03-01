@@ -41,9 +41,6 @@ const AdminLayout = ({ children }) => {
                 <Link to="/admin">Home</Link>
               </li>
               <li>
-                <Link to="/admin/peliculas">Crear Películas</Link>
-              </li>
-              <li>
                 <Link to="/admin/cartelera">Administrar Cartelera</Link>
               </li>
               <li>

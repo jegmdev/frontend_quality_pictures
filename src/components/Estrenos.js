@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import DefaultLayout from "../layout/DefaultLayout.tsx";
 import "../css/Cartelera.css";
+import { API_URL } from "../constants.ts";
 
 class Estrenos extends Component {
   constructor() {
@@ -13,7 +14,7 @@ class Estrenos extends Component {
   }
 
   componentDidMount() {
-    const apiUrl = "http://localhost:3001/api/estrenos";
+    const apiUrl = `${API_URL}/api/estrenos`;
 
     axios
       .get(apiUrl)

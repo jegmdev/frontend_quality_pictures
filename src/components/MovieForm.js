@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "../css/MovieForm.css";
-import AdminLayout from "../layout/AdminLayout.tsx";
+import { API_URL } from "../constants.ts";
 
 const MovieForm = () => {
   const [titulo, setTitulo] = useState("");
@@ -10,19 +10,18 @@ const MovieForm = () => {
   const [formato, setFormato] = useState("");
   const [duracion, setDuracion] = useState("");
   const [valor_boleta, setValor_boleta] = useState("");
-  const [message, setMessage] = useState(""); // Nuevo estado para mensajes
+  const [message, setMessage] = useState("");
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    // Validación de título
     if (!titulo) {
       setMessage("El título es obligatorio");
       return;
     }
 
     try {
-      const response = await fetch("http://localhost:3001/api/estrenos", {
+      const response = await fetch(`${API_URL}/api/estrenos`, {
         method: "POST",
         credentials: "include",
         headers: {
@@ -42,8 +41,6 @@ const MovieForm = () => {
       if (response.ok) {
         console.log("Película agregada correctamente");
         setMessage("Película agregada correctamente");
-        // Puedes redirigir a otra página o realizar otras acciones después de agregar la película
-        // Recargar la página
         window.location.reload();
       } else {
         console.error("Error al agregar la película");
@@ -56,10 +53,9 @@ const MovieForm = () => {
   };
 
   return (
-    <AdminLayout>
+    <div className="MovieFormContainer">
       <div className="MovieForm">
         <h2>Agregar Película</h2>
-        {/* Mostrar mensaje */}
         {message && <p className="message">{message}</p>}
         <form onSubmit={handleSubmit}>
           <label>Título:</label>
@@ -93,7 +89,7 @@ const MovieForm = () => {
           <br />
           <label>URL Imagen promocional:</label>
           <input
-            type="url" // Cambiado de "input" a "url"
+            type="url"
             id="imagen_promocional"
             name="imagen_promocional"
             value={imagen_promocional}
@@ -134,9 +130,23 @@ const MovieForm = () => {
           <button type="submit">Crear película</button>
         </form>
       </div>
-      <br />
-      <br />
-    </AdminLayout>
+      <div className="PreviewContainer">
+        <h2>Previsualización de la película:</h2>
+        {titulo && (
+          <div className="Card">
+            <img src={imagen_promocional} alt="Preview" className="CardImage" />
+            <div className="CardBody">
+              <h3><b>Título: </b>{titulo}</h3>
+              <p><b>Género: </b>{genero}</p>
+              <p><b>Sinopsis: </b>{sinopsis}</p>
+              <p><b>Formato: </b>{formato}</p>
+              <p><b>Duración: </b>{duracion}</p>
+              <p><b>Valor boleta: </b>{valor_boleta}</p>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
   );
 };
 

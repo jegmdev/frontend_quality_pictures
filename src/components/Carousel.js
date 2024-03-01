@@ -103,7 +103,7 @@ const Carousel = () => {
     arrows: true,
     infinite: true,
     speed: 500,
-    autoplay: true,
+    autoplay: false,
     slidesToShow: 3,
     nextArrow: <CustomNextArrow />,
     prevArrow: <CustomPrevArrow />,

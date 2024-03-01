@@ -3,6 +3,7 @@ import "../css/Registro.css";
 import DefaultLayout from "../layout/DefaultLayout.tsx";
 import { useAuth } from "./AuthProvider.tsx";
 import { Link, Navigate, useNavigate } from "react-router-dom";
+import { API_URL } from "../constants.ts";
 
 const Registro = () => {
   const [correo, setCorreo] = useState("");
@@ -70,7 +71,7 @@ const Registro = () => {
     setError(""); // Limpiar mensajes de error previos
 
     try {
-      const response = await fetch("http://localhost:3001/api/registro", {
+      const response = await fetch(`${API_URL}/api/registro`, {
         method: "POST",
         credentials: "include",
         headers: {

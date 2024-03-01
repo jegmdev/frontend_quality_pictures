@@ -5,6 +5,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "../css/Carousel.css";
 import axios from "axios";
+import { API_URL } from "../constants.ts";
 
 const fetchData = async (url, params) => {
   try {
@@ -21,7 +22,7 @@ const Carousel = () => {
 
   const fetchMovieData = async () => {
     try {
-      const response = await fetchData("http://localhost:3001/api/estrenos");
+      const response = await fetchData(`${API_URL}/api/estrenos`);
 
       const movies = response.map((pelicula) => ({
         id: pelicula.id,
@@ -70,7 +71,7 @@ const Carousel = () => {
     arrows: true,
     infinite: true,
     speed: 500,
-    autoplay: true,
+    autoplay: false,
     slidesToShow: 3,
     nextArrow: <CustomNextArrow />,
     prevArrow: <CustomPrevArrow />,
