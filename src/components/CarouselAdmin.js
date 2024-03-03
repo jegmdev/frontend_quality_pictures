@@ -144,8 +144,8 @@ const Carousel = () => {
               ))}
             </ul>
             <div className="overlay">
-              <Link className="button" to={`/pelicula/${movie.id}`}>
-                Reservar
+              <Link className="button" to={"/admin/cartelera"}>
+                Administrar cartelera
               </Link>
             </div>
           </div>

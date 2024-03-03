@@ -111,8 +111,8 @@ const Carousel = () => {
                 <li key={i}>{showtime}</li>
               ))}
               <div className="overlay">
-                <Link className="button" to={`/pelicula/${movie.id}`}>
-                  Reservar
+                <Link className="button" to={"/admin/cartelera"}>
+                  Administrar cartelera
                 </Link>
               </div>
             </ul>

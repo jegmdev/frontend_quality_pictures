@@ -1,8 +1,8 @@
 import React from "react";
 import "../css/App.css";
 import SliderComponent from "./SliderComponent";
-import Carousel from "./Carousel";
-import CarouselEstrenos from "./CarouselEstrenos.js";
+import Carousel from "./CarouselAdmin.js";
+import CarouselEstrenos from "./CarouselEstrenosAdmin.js";
 import ImageBanner from "./imageBanner.js"
 import Footer from "./footer"
 import AdminLayout from "../layout/AdminLayout.tsx";
